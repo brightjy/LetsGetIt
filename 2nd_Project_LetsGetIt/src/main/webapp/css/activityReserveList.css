@@ -1,0 +1,40 @@
+@charset "UTF-8";
+#activityReserveList {
+		width:700px;
+		margin:0 auto;
+	}
+	#activityReserveList h2 {
+		margin:30px 0;
+	}
+	#activityReserveList table {
+		width:650px;
+		margin:0 auto;
+	}
+	#activityReserveList table tr {
+		border-bottom:1px solid lightgray;
+		cursor:pointer;
+	}
+	#activityReserveList table tr td {
+		height:100px;
+	}
+	#activityReserveList table tr .img img {
+		width:120px;
+		height:80px;
+	}
+	#activityReserveList table tr .name {
+		width:480px;
+		padding-left:10px;
+	}
+	#activityReserveList table tr .right {
+		text-align:center;
+		width:50px;
+	}
+	#activityReserveList #btn {
+		width:100px;
+		height:30px;
+		line-height:30px;
+		margin:30px;
+		margin-left:550px;
+		background-color:black;
+		color:white;
+	}

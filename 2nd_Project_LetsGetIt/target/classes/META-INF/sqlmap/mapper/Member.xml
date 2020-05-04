@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Member">
+	<resultMap type="Member" id="MemberResult">
+		<result property="mId" column="mId"/>
+		<result property="mPw" column="mPw"/>
+		<result property="mName" column="mName"/>
+		<result property="mPhone" column="mPhone"/>
+		<result property="mEmail" column="mEmail"/>
+		<result property="mPost" column="mPost"/>
+		<result property="mAddress" column="mAddress"/>
+		<result property="mBirth" column="mBirth"/>
+		<result property="mRdate" column="mRdate"/>
+		<result property="mImg" column="mImg"/>
+	</resultMap>
+	<select id="member_idconfirm" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE mId=#{mId}
+	</select>
+	<select id="member_emailconfirm" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE mEmail=#{mEmail}
+	</select>
+	<insert id="memberJoin" parameterType="Member">
+		INSERT INTO MEMBER(mID ,mPW,mNAME,mPHONE,mEMAIL,mPOST,mADDRESS,mBIRTH,mRDATE) 
+		VALUES (#{mId},#{mPw},#{mName},#{mPhone},#{mEmail},#{mPost},#{mAddress},#{mBirth},SYSDATE)
+	</insert>
+	<select id="memberGet" parameterType="String" resultType="Member">
+		SELECT * FROM MEMBER WHERE mId=#{mId}
+	</select>
+	<select id="idCk" parameterType="member" resultType="Member">
+		SELECT * FROM MEMBER WHERE mName=#{mName} and mEmail=#{mEmail}
+	</select>
+	<update id="pwCk" parameterType="member">
+		UPDATE MEMBER SET mPw = #{mPw} WHERE mId = #{mId} AND mName=#{mName} AND mEmail=#{mEmail}
+	</update>
+	<update id="pwChange" parameterType="Member">
+		UPDATE MEMBER SET 
+		mPW=#{mPw}
+   		WHERE mName=#{mName} and mPhone=#{mPhone} and mId=#{mId}
+	</update>
+	<update id="memberModify" parameterType="Member">
+		UPDATE MEMBER SET 
+		mPW=#{mPw},
+		mNAME=#{mName},
+		mPHONE=#{mPhone},
+		mEMAIL=#{mEmail},
+		mPOST=#{mPost}, 
+		mADDRESS=#{mAddress}, 
+		<if test="mImg!=''">
+			mImg = #{mImg},
+		</if>
+		mBIRTH=#{mBirth}
+   		WHERE mID=#{mId}
+	</update>
+</mapper>

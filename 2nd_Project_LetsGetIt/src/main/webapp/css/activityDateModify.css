@@ -1,0 +1,49 @@
+@charset "UTF-8";
+body {
+		background-color:#EFEFEB;
+	}
+	#activityDateModify {
+  		width:1000px;
+  		height:729px;
+  		margin:0 auto;
+  		background-color:white;
+  	}
+  	#activityDateModify h3 {
+  		padding:30px;
+  	}
+  	#activityDateModify table caption {
+  		height:50px;
+  		line-height:50px;
+  		font-size:1.1em;
+  	}
+	#activityDateModify table tr th, td {
+		width:200px;
+		height:50px;
+		line-height:50px;
+		text-align:center;
+		border-bottom:1px solid lightgray;
+	}
+	#activityDateModify table tr td .btn {
+		width:80px;
+		height:30px;
+		line-height:30px;
+		text-align:center;
+		background-color:black;
+		color:white;
+		cursor:pointer;
+	}
+	#activityDateModify #btn {
+		width:565px;
+		margin-top:30px;
+		text-align:right;
+	}
+	#activityDateModify #btn button {
+		width:200px;
+		height:40px;
+		line-height:40px;
+		border-radius:10px;
+		font-size:12pt;
+		cursor:pointer;
+		background-color:black;
+		color:white;
+	}

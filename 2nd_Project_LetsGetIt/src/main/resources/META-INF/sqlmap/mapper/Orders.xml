@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Orders">
+	<resultMap type="Orders" id="OrderResult">
+		<result property="oNo" column="oNo"/>
+		<result property="oPrice" column="oPrice"/>
+		<result property="oQty" column="oQty"/>
+		<result property="mId" column="mId"/>
+		<result property="oType" column="oType"/>
+		<result property="eNo" column="eNo"/>
+		<result property="arCHECK" column="arCHECK"/>
+		<result property="actStartdate" column="actStartdate"/>
+		<result property="actEnddate" column="actEnddate"/>
+		<result property="actId" column="actId"/>
+		<result property="actImg" column="actImg"/>
+		<result property="actName" column="actName"/>
+		<result property="summoney" column="summoney"/>
+	</resultMap>
+	<insert id="addOrder" parameterType="Orders">
+		INSERT INTO ORDERS VALUES (ORDERS_SQ.NEXTVAL,#{oPrice},#{oQty},#{mId},#{actId},#{eNo},#{arCHECK},#{oType})
+	</insert>
+	<select id="listOrder" parameterType="Orders" resultMap="OrderResult">
+	 SELECT o.oNo,
+			o.mId,
+			a.actId,
+			m.mName,
+			a.actName,
+			o.oQty,
+			a.actImg, 
+			o.oPrice,
+            o.oPrice * o.oQty as summoney ,
+		    o.arCHECK,
+            AD.*
+		FROM
+			MEMBER M , ACTIVITY A, ORDERS O , ActEventDate AD
+		WHERE m.mId =o.mId 
+		AND a.actId = o.actId 
+		AND o.mId=#{mId}
+		AND o.otype =#{oType}
+		AND o.eNo = AD.eNo
+		ORDER BY
+			o.oNo
+	</select>
+	<select id="AllsumMoney" resultType="int">
+		SELECT NVL(SUM(oPrice*oQty),0) money
+		FROM ORDERS O , ACTIVITY A
+		WHERE o.actId = a.actId AND o.mId=#{mId} and o.oType = 'ORDERS'
+	</select>
+	<select id="sumMoney" resultType="int">
+		SELECT NVL(SUM(oPrice*oQty),0) money
+		FROM ORDERS O , ACTIVITY A
+		WHERE o.actId = a.actId AND o.oNo=#{oNo}
+	</select>
+	<update id="modifyOrder">
+		UPDATE ORDERS
+		SET oQty = #{oQty}
+		WHERE mId = #{mId} AND actId = #{actId}
+	</update>
+	<delete id="deleteOrder">
+		DELETE FROM ORDERS
+		WHERE oNo = #{oNo}
+	</delete>
+	<select id="countOrder" resultType="int">
+		SELECT COUNT(*)
+		FROM ORDERS
+		WHERE mId = #{mId} AND actId = #{actId}
+	</select>
+	<update id="updateOrder">
+		UPDATE ODERS
+		SET oQty = oQty+#{oQty}
+		WHERE mId = #{mId} AND 	actId = #{actId}
+	</update>
+	
+	<update id="modifyOrderType">
+		UPDATE ORDERS
+		SET oType ='ACTIVITY'
+		WHERE mId = #{mId} 
+		AND oType = 'ORDERS'
+	</update>
+	
+	<!-- <select id="ordersCheckList" parameterType="Orders" resultMap="OrdersResult">
+		SELECT O.*, (SELECT actSTARTDATE FROM actEVENTDATE WHERE eNO=O.eNO) actSTARTDATE, (SELECT actENDDATE FROM actEVENTDATE WHERE eNO=O.eNO) actENDDATE,
+    		(SELECT actNAME FROM ACTIVITY WHERE actID=O.actID) actNAME, (SELECT actIMG FROM ACTIVITY WHERE actID=O.actID) actIMG
+    		FROM (SELECT O.*, ROWNUM RN FROM (SELECT * FROM ORDERS ORDER BY oNO DESC) O) O
+    		WHERE RN BETWEEN #{startRow} AND #{endRow} AND mID=#{mId}
+	</select> -->
+</mapper>

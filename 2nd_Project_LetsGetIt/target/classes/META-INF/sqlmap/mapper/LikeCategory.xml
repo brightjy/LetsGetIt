@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LikeCategory">
+<resultMap type="LikeCategory" id="LikeCategoryResult">
+	<result property="lcId" column="lcId"/>
+	<result property="mId" column="mId"/>
+	<result property="actCno" column="actCno"/>
+	<result property="actCategory4" column="actCategory4"/>
+	<result property="tempActCno" column="tempActCno"/>
+</resultMap>
+<!--멤버가 이미 좋아한 관심 카테고리인지 확인 id: memberLikeCateCheck -->
+<select id="memberLikeCateCheck" parameterType="LikeCategory" resultType="int">
+	SELECT COUNT(*) FROM LIKE_CATEGORY LC, ACTIVITY_CATEGORY AC WHERE LC.ACTCNO=AC.ACTCNO  AND MID=#{mId} AND ACTCATEGORY4=#{actCategory4}
+</select>
+
+<!-- 멤버가 관심 카테고리 저ㅋ장ㅋ id : memberLikeActCate  -->
+<insert id="memberLikeActCate" parameterType="LikeCategory">
+	INSERT INTO LIKE_CATEGORY (lcId, mID, actCno) 
+		VALUES (LIKE_CATEGORY_SQ.NEXTVAL, #{mId}, 
+			(SELECT ACTCNO FROM (SELECT ROWNUM, ACTCNO FROM ACTIVITY_CATEGORY WHERE ACTCATEGORY4=#{actCategory4} AND ROWNUM=1)))
+</insert>
+
+<!-- 멤버가 관심 카테고리 삭ㅋ제ㅋ id : memberDeleteLikeActCate  -->
+<delete id="memberDeleteLikeActCate" parameterType="LikeCategory">
+	DELETE LIKE_CATEGORY WHERE MID=#{mId} 
+		AND ACTCNO=(SELECT ACTCNO FROM (SELECT ROWNUM, ACTCNO FROM ACTIVITY_CATEGORY WHERE ACTCATEGORY4=#{actCategory4} AND ROWNUM=1))
+</delete>
+
+<!-- 멤버가 저장한 관심 카테고리 번호(딱히 리스트로 뿌릴 것은 아니지만... 페이징은 필요X) id: memberLikeActCateList -->
+<select id="memberLikeActCateList" parameterType="LikeCategory" resultMap="LikeCategoryResult">
+	SELECT actCNO FROM LIKE_CATEGORY WHERE MID=#{mId}
+</select>
+
+<!-- 멤버가 좋아한 카테고리를 actCno만 , 넣어 가져오기 id:memberLikeCateWithCommaList -->
+<select id="memberLikeCateWithCommaList" parameterType="String" resultMap="LikeCategoryResult">
+	SELECT ' '||actCNO||', ' tempActCno FROM LIKE_CATEGORY WHERE mID=#{mId}
+</select>
+</mapper>

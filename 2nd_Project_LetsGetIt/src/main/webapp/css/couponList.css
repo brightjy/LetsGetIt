@@ -1,0 +1,44 @@
+@charset "UTF-8";
+#couponList {
+		width:700px;
+		height:699px;
+		margin:0 auto;
+	}
+	#couponList h2 {
+		text-align:center;
+		margin:30px 0;
+	}
+	#couponList table tr {
+		border:1px solid lightgray;
+		text-align:center;
+	}
+	#couponList table tr .shot {
+		width:130px;
+		height:40px;
+		line-height:40px;
+	}
+	#couponList table tr .mid {
+		width:150px;
+		height:40px;
+		line-height:40px;
+	}
+	#couponList table tr .long {
+		width:500px;
+		height:40px;
+		line-height:40px;
+	}
+	#couponList table tr .name {
+		width:500px;
+		height:40px;
+		line-height:40px;
+		padding-left:10px;
+	}
+	#couponList #none {
+		height:40px;
+		line-height:40px;
+	}
+	#paging {
+		width:700px;
+		margin:0 auto;
+		text-align:center;
+	}

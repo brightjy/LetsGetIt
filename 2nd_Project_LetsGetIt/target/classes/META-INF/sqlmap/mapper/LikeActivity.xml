@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LikeActivity">
+	<resultMap type="LikeActivity" id="LikeActivityResult">
+		<result property="laId" column="laId"/>
+		<result property="mId" column="mId"/>
+		<result property="actId" column="actId"/>
+		<result property="laRdate" column="laRdate"/>
+		<result property="mName" column="mName"/>
+		<result property="mEmail" column="mEmail"/>
+		<result property="mPhone" column="mPhone"/>
+		<result property="actName" column="actName"/>
+		<result property="actImg" column="actImg"/>
+		<result property="actPrice" column="actPrice"/>
+		<result property="actDiscount" column="actDiscount"/>
+		<result property="hId" column="hId"/>
+	</resultMap>
+	<!-- 멤버가 액티비티 좋아하기 id : memberLikeActivity -->
+	<insert id="memberLikeActivity" parameterType="LikeActivity">
+		INSERT INTO LIKE_ACTIVITY (laID, mID, actID) VALUES (LIKE_ACTIVITY_SQ.nextval, #{mId}, #{actId})
+	</insert>
+	<!-- 멤버가 좋아한 총 액티비티 개수 id : memberLikeActivityCnt -->
+	<select id="memberLikeActivityCnt" parameterType="LikeActivity" resultType="int">
+		SELECT COUNT(*) FROM LIKE_ACTIVITY WHERE mID=#{mId}
+	</select>
+	<!-- 멤버가 좋아한 액티비티 리스트(+페이징) id: memberLikeActivityList -->
+	<select id="memberLikeActivityList" parameterType="LikeActivity" resultMap="LikeActivityResult">
+		SELECT*FROM(SELECT ROWNUM RN, B.* 
+		    FROM(SELECT LA.*, actNAME, actIMG, actPRICE, actDISCOUNT, hId FROM ACTIVITY A, LIKE_ACTIVITY LA 
+		    WHERE A.actID=LA.actID AND mID=#{mId, jdbcType = VARCHAR} ORDER BY laRDATE DESC)B) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 멤버가 이 액티비티를 이미 좋아했는가??? 체크용 id: memberLikeActivityCheck -->
+	<select id="memberLikeActivityCheck" parameterType="LikeActivity" resultType="int">
+		SELECT COUNT(*) FROM like_activity WHERE actID=#{actId} AND mID=#{mId, jdbcType = VARCHAR}
+	</select>
+	<!-- 이 액티비티를 좋아하는 멤버 명 수 id: activityLikeMemberCnt -->
+	<select id="activityLikeMemberCnt" parameterType="LikeActivity" resultType="int">
+		SELECT COUNT(*) FROM LIKE_ACTIVITY WHERE actID=#{actId}
+	</select>
+	<!-- 이 액티비티를 좋아하는 멤버 리스트(페이징) id: activityLikeMemberList -->
+	<select id="activityLikeMemberList" parameterType="LikeActivity" resultMap="LikeActivityResult">
+		SELECT*FROM(SELECT ROWNUM RN, A.* 
+		    FROM(SELECT mNAME, mEMAIL, mPHONE, LA.* FROM MEMBER M, LIKE_ACTIVITY LA 
+		    WHERE M.mID=LA.mID AND actID=#{actId} ORDER BY laRDATE DESC)A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 멤버가 액티비티 좋아하기 취소 id : memberLikeActivityDelete -->
+	<delete id="memberLikeActivityDelete" parameterType="LikeActivity">
+		DELETE LIKE_ACTIVITY WHERE actID=#{actId} AND mID=#{mId}
+	</delete>
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Review">
+	<resultMap type="Review" id="ReviewResult">
+		<result property="rId" column="rId" />
+		<result property="rTitle" column="rTitle" />
+		<result property="rWriter" column="rWriter" />
+		<result property="rPw" column="rPw" />
+		<result property="rContent" column="rContent" />
+		<result property="rGroup" column="rGroup" />
+		<result property="rStep" column="rStep" />
+		<result property="rIndent" column="rIndent" />
+		<result property="rImg" column="rImg" />
+		<result property="rGrade" column="rGrade" />
+		<result property="actId" column="actId" />
+		<result property="rLike" column="rLike" />
+		<result property="rDate" column="rDate" />
+		<result property="actName" column="actName" />
+		<result property="mId" column="mId" />
+		<result property="hId" column="hId" />
+	</resultMap>
+	<select id="reviewList" parameterType="Review" resultMap="ReviewResult">
+		SELECT REVIEW.*, (SELECT actNAME FROM ACTIVITY WHERE actID=#{actId}) actNAME
+    		FROM (SELECT ROWNUM RN, R.* 
+    		FROM (SELECT * FROM REVIEW ORDER BY rGROUP DESC, rSTEP) R) REVIEW
+    		WHERE actID=#{actId} AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="LikeReview" parameterType="Review" resultType="Review">
+		SELECT ROWNUM, REVIEW.*, (SELECT actNAME FROM ACTIVITY WHERE actID=#{actId}) actNAME
+			FROM REVIEW WHERE actID=#{actId}
+			AND rLIKE = (SELECT MAX(rLIKE) FROM REVIEW WHERE actID=#{actId}) AND ROWNUM=1
+	</select>
+	<insert id="reviewWrite" parameterType="Review">
+		<if test="mId != null">
+			<if test="rImg != null">
+				INSERT INTO REVIEW (rID, rTITLE, rWRITER, rPW, rCONTENT, rIMG, rGROUP, rSTEP, rINDENT, rGRADE, actID, mID)
+	    			VALUES (REVIEW_SQ.NEXTVAL, #{rTitle}, (SELECT mNAME FROM MEMBER WHERE mID=#{rWriter}), #{rPw}, #{rContent}, #{rImg}, REVIEW_SQ.CURRVAL, 0, 0, #{rGrade}, #{actId}, #{mId})
+			</if>
+			<if test="rImg == null">
+				INSERT INTO REVIEW (rID, rTITLE, rWRITER, rPW, rCONTENT, rGROUP, rSTEP, rINDENT, rGRADE, actID, mID)
+	    			VALUES (REVIEW_SQ.NEXTVAL, #{rTitle}, (SELECT mNAME FROM MEMBER WHERE mID=#{rWriter}), #{rPw}, #{rContent}, REVIEW_SQ.CURRVAL, 0, 0, #{rGrade}, #{actId}, #{mId})
+			</if>
+		</if>
+		<if test="hId != null">
+			<if test="rImg != null">
+				INSERT INTO REVIEW (rID, rTITLE, rWRITER, rPW, rCONTENT, rIMG, rGROUP, rSTEP, rINDENT, rGRADE, actID, hId)
+	    			VALUES (REVIEW_SQ.NEXTVAL, #{rTitle}, (SELECT hNAME FROM HOST WHERE hID=#{rWriter}), #{rPw}, #{rContent}, #{rImg}, REVIEW_SQ.CURRVAL, 0, 0, #{rGrade}, #{actId}, #{hId})
+			</if>
+			<if test="rImg == null">
+				INSERT INTO REVIEW (rID, rTITLE, rWRITER, rPW, rCONTENT, rGROUP, rSTEP, rINDENT, rGRADE, actID, hId)
+	    			VALUES (REVIEW_SQ.NEXTVAL, #{rTitle}, (SELECT hNAME FROM HOST WHERE hID=#{rWriter}), #{rPw}, #{rContent}, REVIEW_SQ.CURRVAL, 0, 0, #{rGrade}, #{actId}, #{hId})
+			</if>
+		</if>
+	</insert>
+	<insert id="reviewReply" parameterType="Review">
+		<if test="mId != null">
+			INSERT INTO REVIEW (rID, rTITLE, rWRITER, rPW, rCONTENT, rGROUP, rSTEP, rINDENT, actID, mID) 
+	    		VALUES (REVIEW_SQ.NEXTVAL, #{rTitle}, (SELECT mNAME FROM MEMBER WHERE mID=#{rWriter}), #{rPw}, #{rContent}, #{rGroup}, #{rStep}+1, #{rIndent}+1, #{actId}, #{mId})
+		</if>
+    	<if test="hId != null">
+			INSERT INTO REVIEW (rID, rTITLE, rWRITER, rPW, rCONTENT, rGROUP, rSTEP, rINDENT, actID, hID) 
+	    		VALUES (REVIEW_SQ.NEXTVAL, #{rTitle}, (SELECT hNAME FROM HOST WHERE hID=#{rWriter}), #{rPw}, #{rContent}, #{rGroup}, #{rStep}+1, #{rIndent}+1, #{actId}, #{hId})
+    	</if>
+	</insert>
+	<update id="reviewModify" parameterType="Review">
+		UPDATE REVIEW SET rTITLE=#{rTitle}, rCONTENT=#{rContent}, rGRADE=#{rGrade} WHERE rID=#{rId} AND rPW=#{rPw}
+	</update>
+	<update id="reviewLike" parameterType="Review">
+		UPDATE REVIEW SET rLIKE=rLIKE+1 WHERE rID=#{rId}
+	</update>
+	<update id="reviewUnLike" parameterType="Review">
+		UPDATE REVIEW SET rLIKE=rLIKE-1 WHERE rID=#{rId}
+	</update>
+	<update id="reviewStepA" parameterType="Review">
+		UPDATE REVIEW SET rSTEP=rSTEP+1 WHERE rGROUP=#{rGroup} AND #{rStep} > 0 AND actID=#{actId}
+	</update>
+	<delete id="reviewDelete" parameterType="Review">
+		DELETE REVIEW WHERE rID=#{rId} AND rPW=#{rPw}
+	</delete>
+	<select id="reviewCnt" parameterType="Review" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE actID=#{actId}
+	</select>
+	<select id="reviewGrade" parameterType="Review" resultType="double">
+		SELECT AVG(rGRADE) FROM REVIEW WHERE actID=#{actId}
+	</select>
+	<select id="getReview" parameterType="Review" resultType="Review">
+		SELECT * FROM REVIEW WHERE rID=#{rId}
+	</select>
+	<select id="myReviewList" parameterType="Review" resultMap="ReviewResult">
+		SELECT R.*, (SELECT actNAME FROM ACTIVITY WHERE actID=R.actID) actNAME FROM 
+    		(SELECT ROWNUM RN, R.* FROM 
+    		(SELECT * FROM REVIEW ORDER BY rID DESC) R) R 
+    		WHERE mID=#{mId} AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="myReviewCnt" parameterType="Review" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE mID=#{mId}
+	</select>
+</mapper>

@@ -1,0 +1,21 @@
+INDEX VERSION 1.131
+D:\java\source\pj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\605822148.index
+\2nd_Project_LetsGetIt\src\main\java
+D:\java\source\pj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3527344884.index
+\2nd_Project_LetsGetIt\src\main\java
+D:\java\source\pj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3415637211.index
+\2nd_Project_LetsGetIt\src\main\java
+D:\java\source\pj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1701387795.index
+\2nd_Project_LetsGetIt\src\main\java
+D:\java\source\pj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\763722519.index
+\2nd_Project_LetsGetIt\src\main\java
+D:\java\source\pj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2721111149.index
+\2nd_Project_LetsGetIt\src\main\java
+D:\java\source\pj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4000770949.index
+\2nd_Project_LetsGetIt\src\main\java
+D:\java\source\pj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4056919491.index
+\2nd_Project_LetsGetIt\src\main\java
+D:\java\source\pj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2364027693.index
+\2nd_Project_LetsGetIt\src\main\java
+D:\java\source\pj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4085236577.index
+\2nd_Project_LetsGetIt\src\main\java

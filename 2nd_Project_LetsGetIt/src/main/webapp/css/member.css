@@ -1,0 +1,301 @@
+@charset "UTF-8";
+
+@media(max-width:640px){
+*{
+	box-sizing: border-box;
+}
+#Wrap{
+	width:100%;
+	margin:240px 0;
+	padding: 0 3%;
+}
+
+table{
+	width:100%;
+}
+
+table .title{
+	font-size:2.0em;
+	font-weight:lighter;
+	color:black;
+	text-align:center;
+	padding-bottom:20px;
+}
+
+table .content{
+	font-weight:lighter;
+	width:100%;
+	padding-top:20px;
+}
+
+table .firstTd{
+	font-weight:lighter;
+	width:100%;
+	padding-top:20px;
+}
+
+table .otherTd{
+	font-weight:lighter;
+	width:100%;
+	padding-top:10px;
+}
+
+input[type=text]{
+	outline:0;
+	width:100%;
+	padding:12px;
+	font-size:0.80em;
+	letter-spacing: -1px;
+/* 	margin-top:5px; */
+}
+
+input[type=password]{
+	outline:0;	
+	width:100%;
+	padding:12px;
+/* 	margin-top:5px; */
+	font-size:0.80em;
+	letter-spacing: -1px;
+}
+
+input[type=button]{
+	border:0;
+	background-color:white;
+	font-size:0.9em;
+	border:1px solid lightgrey;
+	padding:12px;
+	width:100%;
+	margin-top:10px;
+}
+
+input[type=button]:hover{
+	border:1px solid black;
+	cursor:pointer;
+}
+
+input[type=submit]{
+	width:100%;
+	padding:18px 12px;
+	margin-top:20px;
+	font-size:1.0em;
+	background-color:black;
+	color:white;
+	outline:0;
+	border:0;
+}
+
+input[type=submit]:hover{
+	cursor:pointer;	
+}
+
+
+.fake{
+	padding-top:10px;
+}
+
+.kakaobtn{
+	background-color:
+}
+#kakao-login-btn{
+	width:100%;
+	height:100%;
+	border-radius:0;	
+}
+
+
+#joinWrap{
+	width:100%;
+	margin-top:80px;
+	overflow:hidden;
+	padding:0 3%;
+	margin-bottom:10%;
+}
+
+
+
+
+
+
+
+
+}
+
+@media(min-width:640px){
+
+*{
+	box-sizing: border-box;
+}
+
+section{
+	height:1000px;
+}	
+
+#Wrap{
+	width:30%;
+	height:100%;
+	margin-top:80px;
+	margin-bottom:80px;
+}
+
+table{
+	width:70%;
+}
+
+table .title{
+	font-size:2.0em;
+	font-weight:lighter;
+	color:black;
+	border-bottom:3px solid black;
+	text-align:center;
+	padding-bottom:20px;
+}
+
+table .content{
+	font-weight:lighter;
+	width:100px;
+	padding-top:20px;
+}
+
+table .firstTd{
+	font-weight:lighter;
+	width:100px;
+	padding-top:20px;
+}
+
+table .otherTd{
+	font-weight:lighter;
+	width:100px;
+	padding-top:10px;
+}
+
+input[type=text]{
+	outline:0;
+	width:100%;
+	padding:12px;
+	font-size:0.80em;
+	letter-spacing: -1px;
+/* 	margin-top:5px; */
+}
+
+input[type=password]{
+	outline:0;	
+	width:100%;
+	padding:12px;
+/* 	margin-top:5px; */
+	font-size:0.80em;
+	letter-spacing: -1px;
+}
+
+input[type=button]{
+	border:0;
+	background-color:white;
+	font-size:0.9em;
+	border:1px solid lightgrey;
+	padding:12px;
+	width:100%;
+	margin-top:10px;
+}
+
+input[type=button]:hover{
+	border:1px solid black;
+	cursor:pointer;
+}
+
+input[type=submit]{
+	width:100%;
+	padding:18px 12px;
+	margin-top:20px;
+	font-size:1.0em;
+	background-color:black;
+	color:white;
+	outline:0;
+	border:0;
+}
+
+input[type=submit]:hover{
+	cursor:pointer;	
+}
+
+
+.fake{
+	padding-top:10px;
+}
+
+.kakaobtn{
+	background-color:
+}
+#kakao-login-btn{
+	width:100%;
+	height:100%;
+	border-radius:0;	
+}
+
+#joinWrap{
+	width:20%;
+	margin-top:80px;
+	overflow:hidden;
+}
+
+#joinWrap table{
+	width:100%;
+}
+
+#LikeCateWrap{
+	width:40%;
+	margin-top:80px;
+	margin-bottom:80px;
+	overflow:hidden;
+}
+
+#LikeCateWrap table{
+	width:100%;
+}
+
+
+.content p{
+	margin-bottom:5px;
+	font-size:0.95em;
+}
+
+.content span{
+	font-size:0.95em;
+}
+
+.postSearch:hover{
+	cursor:pointer;
+}
+
+#emailConfirmMsg, #idConfirmMsg, #pwConfirmMsg, #nameConfirmMsg, #phoneConfirmMsg{
+	font-size:0.80em;
+	letter-spacing: -1px;
+	color:#03c8ff;
+}
+
+
+
+/* #LikeCateWrap button:hover{
+	border:1px solid black;
+	background-color:#f2f2f2;
+} */
+
+
+
+
+.selected{
+	outline:0;
+	background-color:#f2f2f2;
+	padding: 1% 2%;
+	margin-top:1%;
+    border:1px solid black;
+	border-radius:5px;
+}
+
+.unSelected{
+	outline:0;
+	background-color:white;
+	padding: 1% 2%;
+	margin-top:1%;
+    border:1px solid lightgrey;
+	border-radius:5px;
+}
+}

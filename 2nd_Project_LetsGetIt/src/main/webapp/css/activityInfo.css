@@ -1,0 +1,61 @@
+@charset "UTF-8";
+body {
+		background-color:#EFEFEB;
+	}
+	ul, li {
+		list-style:none;
+	}
+	#activityInfo {
+		width:1400px;
+		margin:0 auto;
+		overflow:hidden;
+		height:729px;
+	}
+	#activityInfo h3 {
+		margin:20px;
+	}
+	#activityInfo #left {
+		margin-left:20px;
+		width:830px;
+		background-color:white;
+		float:left;
+		height:550px;
+		padding-left:35px;
+	}
+	#activityInfo #right {
+		width:530px;
+		height:550px;
+		background-color:white;
+		float:left;
+		border-left:1px solid lightgray;
+		padding:10px;
+	}
+	#activityInfo #right ul .space {
+		margin-bottom:5px;
+		font-size:0.9em;
+		list-style:none;
+	}
+	#activityInfo #right ul li ul li {
+		margin-left:10px;
+		list-style:none;
+	}
+	#activityInfo #btn {
+		clear:both;
+		width:1360px;
+		padding:20px 0 20px 30px;
+		background-color:white;
+		border-top:1px solid lightgray;
+	}
+	#activityInfo #btn .btn {
+		width:300px;
+		height:40px;
+		line-height:40px;
+		border-radius:10px;
+		outline:0;
+		border:0;
+		cursor:pointer;
+	}
+	#activityInfo #btn input[type=submit] {
+		background-color:black;
+		color:white;
+	}

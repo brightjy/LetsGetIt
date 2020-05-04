@@ -1,0 +1,61 @@
+@charset "UTF-8";
+#reviewWrite {
+		width:1000px;
+		height:729px;
+		margin:0 auto;
+	}
+	#reviewWrite table {
+		border-collapse: separate;
+ 		border-spacing: 0 10px;
+	}
+	#reviewWrite table caption {
+		font-size:1.3em;
+		font-weight:bold;
+		margin:30px 0;
+	}
+	#reviewWrite table tr th {
+		width:150px;
+		height:40px;
+		text-align:left;
+	}
+	#reviewWrite table tr td input[type=text] {
+		width:300px;
+		height:30px;
+		line-height:30px;
+		padding-left:10px;
+		font-size:1.1em;
+	}
+	#reviewWrite table tr td textarea {
+		width:300px;
+		height:300px;
+		padding:10px;
+	}
+	#reviewWrite table tr td select {
+		width:100px;
+		height:30px;
+		padding-left:5px;
+	}
+	#reviewWrite table tr td input[type=password] {
+		width:300px;
+		height:30px;
+		line-height:30px;
+		padding-left:10px;
+	}
+	#reviewWrite table tr td #btn {
+		clear:both;
+		padding:20px 0 20px 30px;
+		background-color:white;
+	}
+	#reviewWrite table tr td #btn .btn {
+		width:200px;
+		height:40px;
+		line-height:40px;
+		border-radius:10px;
+		outline:0;
+		border:0;
+		cursor:pointer;
+	}
+	#reviewWrite table tr td #btn input[type=submit] {
+		background-color:black;
+		color:white;
+	}

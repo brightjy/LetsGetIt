@@ -1,0 +1,126 @@
+@charset "UTF-8";
+body {
+		background-color:#EFEFEB;
+	}
+	#activityModify {
+		width:1100px;
+		margin:0 auto;
+		background-color:white;
+	}
+	#activityModify h2 {
+		padding:30px;
+	}
+	#activityModify table {
+		border-collapse: separate;
+ 		border-spacing: 0 15px;
+	}
+	#activityModify table tr input[type=text] {
+		width:600px;
+		height:40px;
+		line-height:40px;
+		padding-left:10px;
+		font-size:1.1em;
+	}
+	#activityModify table tr #cnt {
+		overflow:hidden;
+	}
+	#activityModify table tr #cnt .cnt {
+		float:left;
+		width:200px;
+		margin:30px;
+		overflow:hidden;
+	}
+	#activityModify table tr #cnt #clear {
+		clear:both;
+	}
+	#activityModify table tr #cnt .cnt div {
+		margin-top:10px;
+		float:left;
+	}
+	#activityModify table tr #cnt .cnt .div {
+		border:1px solid lightgray;
+		width:40px;
+		height:40px;
+		line-height:30px;
+		font-size:1.2em;
+		text-align:center;
+	}
+	#activityModify table tr #cnt .cnt input {
+		width:100px;
+		height:40px;
+		line-height:40px;
+		text-align:center;
+		padding-left:10px;
+		font-size:1.1em;
+	}
+	#activityModify table tr #cnt .cnt p {
+		text-align:center;
+		padding-right:20px;
+	}
+	#activityModify table tr #cnt #clear p {
+		font-size:1.2em;
+		margin:15px;
+	}
+	#activityModify table tr #cnt #clear input {
+		width:350px;
+		height:40px;
+		line-height:40px;
+	}
+	#activityModify table tr #cnt #clear #price {
+		padding-right:30px;
+		padding-left:10px;
+		margin-right:-30px;
+		font-size:1.1em;
+	}
+	#activityModify table tr #cnt #clear #dis {
+		padding-right:30px;
+		padding-left:10px;
+		margin-right:-30px;
+		font-size:1.1em;
+		width:120px;
+		text-align:center;
+		margin-top:15px;
+	}
+	#activityModify textarea {
+		width:600px;
+		height:250px;
+		padding:10px;
+	}
+	
+	#activityModify #btn {
+		width:1100px;
+		text-align:center;
+		padding:20px 0 20px 30px;
+	}
+	#activityModify #btn .btn {
+		width:300px;
+		height:40px;
+		line-height:40px;
+		border-radius:10px;
+		outline:0;
+		border:0;
+		cursor:pointer;
+	}
+	#activityModify #btn input[type=submit] {
+		background-color:black;
+		color:white;
+	}
+	#activityModify #address #sample6_postcode {
+		width:200px;
+		height:40px;
+		line-height:40px;
+		font-size:1.1em;
+	}
+	#activityModify #address #sample6_address {
+		width:600px;
+		height:40px;
+		line-height:40px;
+		font-size:1.1em;
+	}
+	#activityModify #address input[type=button] {
+		width:150px;
+		height:40px;
+		line-height:40px;
+		background-color:black;
+		color:white;
+	}

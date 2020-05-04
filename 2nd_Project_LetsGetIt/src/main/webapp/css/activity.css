@@ -1,0 +1,147 @@
+@charset "UTF-8";
+
+*{
+	box-sizing: border-box;
+	margin:0 auto;
+	padding:0;
+	padding:0;
+	box-sizing: border-box;
+	border-collapse:collapse;
+}
+
+#wrap{
+	margin-top:100px;
+	height:100%;
+	width:50%;
+}
+
+table{
+	width:100%;
+}
+
+#writeFirstLine{
+	text-align:left;
+	font-weight:bold;
+	font-size:1.5em;
+	letter-spacing: -1px;
+	border-bottom:3px solid black;
+	padding-bottom: 2%;
+}
+
+.actWriteTitle, .actWriteContent{
+	padding:7% 0 13% 0;
+}
+
+#memberCnt .actWriteTitle, #memberCnt .actWriteContent{
+	padding:3% 0;
+}
+
+#memberCnt .actWriteTitle{
+	width:25%;
+	font-size:0.95em;
+	padding-left:2%;
+}
+
+#memberCnt .actWriteContent{
+	padding-right:2%;
+}
+
+.actWriteTitle{
+	width:25%;
+	font-size:0.95em;
+	padding-left:2%;
+}
+
+.actWriteContent{
+	padding-right:2%;
+}
+
+.lastRow td{
+	border-top:1px solid black;
+}
+
+#lastRow{
+	padding-top:5%;
+}
+
+input[type=submit] {
+	width:20%;
+	padding:1% 0.5%;
+	margin:0% 0.5%;
+	font-size:1.0em;
+	background-color:black;
+	color:white;
+	outline:0;
+	border:0;
+}
+
+input[type=button], button{
+	margin:0% 0.5%;
+	padding:1% 0.5%;
+	width:20%;
+	border:0;
+	outline:0;
+	background-color:white;
+	font-size:0.9em;
+	border:1px solid lightgrey;
+	box-sizing:border-box;
+	color:#000;
+}
+
+input[type=submit]:hover, input[type=button]:hover{
+	cursor:pointer;
+}
+
+input[type=button]:hover{
+	border:1px solid black;
+	box-sizing:border-box;
+	
+}
+
+.change{background-color:black; color:white;}
+
+select{
+	padding:1% 2.5%;
+	margin-right:1%;
+	outline:0;
+}
+
+input[type=text]{
+	outline:0;
+	width:100%;
+	padding:12px;
+	font-size:0.80em;
+	letter-spacing: -1px;
+/* 	margin-top:5px; */
+}
+
+input[type=text]{
+	width:100%;
+	padding: 2% 2%;
+	outline: 0;
+	border:0;
+	background-color: #f2f2f2;
+}
+
+input[type=text]:focus{
+	border:1px solid black;
+	box-sizing: border-box;
+	background-color: white;
+}
+
+input[type=number]{
+	outline: 0;
+	border:0;
+/* 	background-color: #f2f2f2; */
+	padding: 2% 0;
+	
+}
+
+.minMax{
+	font-size:1.5em;
+}
+
+.minMax:hover{
+	cursor:pointer;
+	font-weight:bold;
+}

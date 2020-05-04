@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ActivityReserve">
+	<resultMap type="ActivityReserve" id="ActivityReserveResult">
+		<result property="arId" column="arId" />
+		<result property="hId" column="hId" />
+		<result property="mId" column="mId" />
+		<result property="actId" column="actId" />
+		<result property="eNo" column="eNo" />
+		<result property="arCheck" column="arCheck" />
+		<result property="arRdate" column="arRdate" />
+		<result property="arCheckDate" column="arCheckDate" />
+		<result property="mName" column="mName" />
+		<result property="mPhone" column="mPhone" />
+		<result property="mBirth" column="mBirth" />
+	</resultMap>
+	<select id="hostActivityReserveList" parameterType="ActivityReserve" resultMap="ActivityReserveResult">
+		SELECT AR.*, (SELECT mNAME FROM MEMBER WHERE mID=AR.mID) mNAME, 
+					 (SELECT mPHONE FROM MEMBER WHERE mID=AR.mID) mPHONE,
+            		 (SELECT mBIRTH FROM MEMBER WHERE mID=AR.mID) mBIRTH 
+    		FROM ACTIVITY_RESERVE AR WHERE eNO=#{eNo}
+	</select>
+	<insert id="hostActivityReserve" parameterType="ActivityReserve">
+		INSERT INTO ACTIVITY_RESERVE (arID, hID, mID, actID, eNO)
+		 VALUES (ACTIVITY_RESERVE_SQ.NEXTVAL, #{hId}, #{mId}, #{actId}, #{eNo})
+	</insert>
+	<update id="hostActivityCheck" parameterType="ActivityReserve">
+		UPDATE ACTIVITY_RESERVE SET arCHECK=1, arCheckDate=SYSDATE WHERE arID=#{arId}
+	</update>
+	<select id="myActivityReserveCnt" parameterType="ActivityReserve" resultType="int">
+		SELECT COUNT(*) FROM ACTIVITY_RESERVE WHERE mID=#{mId}
+	</select>
+	<select id="myActivityList" parameterType="ActivityReserve" resultMap="ActivityReserveResult">
+		SELECT A.*, (SELECT actNAME FROM ACTIVITY WHERE actID=A.actID) actNAME, 
+    		(SELECT actIMG FROM ACTIVITY WHERE actID=A.actID) actIMG, 
+    		(SELECT actSTARTDATE FROM ACTEVENTDATE WHERE eNO=A.eNO) actSTARTDATE, 
+    		(SELECT actENDDATE FROM ACTEVENTDATE WHERE eNO=A.eNO) actENDDATE FROM 
+    		(SELECT ROWNUM RN, A.* FROM 
+    		(SELECT * FROM ACTIVITY_RESERVE ORDER BY arID DESC) A) A 
+    		WHERE mID=#{mId} AND ROWNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+</mapper>

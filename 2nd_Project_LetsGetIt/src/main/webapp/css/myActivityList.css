@@ -1,0 +1,47 @@
+@charset "UTF-8";
+#myActivityList {
+		width:1500px;
+		height:729px;
+		margin:0 auto;
+	}
+	#myActivityList table caption {
+		margin:20px 0;
+		font-size:1.2em;
+		font-weight:bold;
+	}
+	#myActivityList table tr {
+		border-bottom:1px solid lightgray;
+	}
+	#myActivityList table tr .mid {
+		width:200px;
+		text-align:center;
+	}
+	#myActivityList table tr .mid button {
+		background-color:black;
+		color:white;
+		width:150px;
+		height:30px;
+	}
+	#myActivityList table tr .img {
+		width:50px;
+		height:40px;
+	}
+	#myActivityList table tr .left {
+		width:300px;
+		padding-left:10px;
+	}
+	#myActivityList table tr .long {
+		width:150px;
+		text-align:center;
+		height:40px;
+		line-height:40px;
+	}
+	#myActivityList table tr img {
+		width:50px;
+		height:40px;
+		border:1px solid gray;
+		margin-top:5px;
+	}
+	#myActivityList #paging {
+		margin-top:20px;
+	}

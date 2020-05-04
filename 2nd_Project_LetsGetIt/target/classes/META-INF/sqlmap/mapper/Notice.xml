@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Notice">
+	<resultMap type="Notice" id="NoticeResult">
+		<result property="nNo" column="nNo"/>
+		<result property="nType" column="nType"/>
+		<result property="nTitle" column="nTitle"/>
+		<result property="nContent" column="nContent"/>
+		<result property="nGroup" column="nGroup"/>
+		<result property="nStep" column="nStep"/>
+		<result property="nIndent" column="nIndent"/>
+		<result property="nRdate" column="nRdate"/>
+		<result property="nImg" column="nImg"/>
+	</resultMap>
+	<select id="noticeList" resultMap="NoticeResult" parameterType="Notice" ><!--쿼리 매핑 아이디, 결과값, 파라미터정의-->
+		SELECT * FROM (SELECT ROWNUM RN , A.*  FROM (SELECT * FROM NOTICE WHERE 1=1
+		<if test='nType!="ALL"'>
+			AND NTYPE = #{nType,jdbcType=VARCHAR}
+		</if>
+		order by nNo)A)WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<insert id="noticeWrite" parameterType="Notice">
+		<if test="nImg==''">
+    		INSERT INTO Notice (nNo, nType, nTitle, nContent,nGROUP, nSTEP, nINDENT,nRDATE)
+            VALUES (NOTICE_SEQ.NEXTVAL,#{nType},#{nTitle},#{nContent},NOTICE_SEQ.CURRVAL,#{nStep},#{nIndent},SYSDATE)
+    	</if>
+		<if test="nImg!=''">
+    		INSERT INTO Notice (nNo, nType, nTitle, nContent,nGROUP, nSTEP, nINDENT,nRDATE,nImg)
+            VALUES (NOTICE_SEQ.NEXTVAL,#{nType},#{nTitle},#{nContent},NOTICE_SEQ.CURRVAL,#{nStep},#{nIndent},SYSDATE,#{nImg})
+    	</if>
+	</insert>
+	<update id="noticeModify" parameterType="Notice">
+		UPDATE Notice SET 
+		    nTitle = #{nTitle},
+		    nContent = #{nContent},
+		    <if test="nImg!=''">
+			    nImg = #{nImg},
+		    </if>
+		    nRDATE = SYSDATE
+		    WHERE NNO=#{nNo}
+	</update>
+	<delete id="noticeDelete" parameterType="int">
+		DELETE FROM NOTICE WHERE NNO=#{nNo}
+	</delete>
+	<select id="cntNotice" resultType="int">
+		SELECT COUNT(*) FROM NOTICE
+	</select>
+	<select id="detailNotice" parameterType="int" resultMap="NoticeResult" >
+		SELECT*FROM NOTICE WHERE NNO=#{nNo}
+	</select>
+</mapper>

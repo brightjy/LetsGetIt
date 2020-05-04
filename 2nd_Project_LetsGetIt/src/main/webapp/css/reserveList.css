@@ -1,0 +1,42 @@
+@charset "UTF-8";
+#activityReserveList {
+		width:700px;
+		height:669px;
+		margin:30px auto;
+	}
+	#activityReserveList h2 {
+		margin-bottom:20px;
+	}
+	#activityReserveList #date {
+		margin-top:20px;
+	}
+	#activityReserveList #date tr th {
+		border-bottom:1px solid lightgray;
+	}
+	#activityReserveList #date tr td {
+		border-bottom:1px solid lightgray;
+	}
+	#activityReserveList #date tr td {
+		height:40px;
+		line-height:40px;
+	}
+	#activityReserveList #date tr th, td {
+		width:130px;
+		text-align:center;
+	}
+	#activityReserveList #date tr td button {
+		width:100px;
+		height:30px;
+		line-height:30px;
+		cursor:pointer;
+		outline:none;
+	}
+	#activityReserveList #btn {
+		width:100px;
+		height:30px;
+		line-height:30px;
+		margin:30px;
+		margin-left:550px;
+		background-color:black;
+		color:white;
+	}

@@ -1,0 +1,52 @@
+@charset "UTF-8";
+#activityList {
+		width:900px;
+		height:729px;
+		margin:0 auto;
+		overflow:hidden;
+		padding-left:55px;
+	}
+	#activityList h2 {
+		margin:15px;
+	}
+	#activityList .activity {
+		width:250px;
+		float:left;
+		margin:5px;
+		border:1px solid lightgray;
+	}
+	#activityList .activity img {
+		width:248px;
+		height:150px;
+	}
+	#activityList .activity .name {
+		font-weight:bold;
+		margin:20px 0 20px 10px;
+	}
+	#activityList .activity .price {
+		margin-bottom:15px;
+	}
+	#activityList .activity div {
+		overflow:hidden;
+	}
+	#activityList .activity div .left {
+		margin-left:10px;
+		float:left;
+	}
+	#activityList .activity div .right {
+		float:right;
+		margin-right:10px;
+	}
+	#activityList .activity .con {
+		background-color:#7AA0CB;
+		color:white;
+	}
+	#activityList .activity .con .right a {
+		color:white;
+	}
+	#paging {
+		clear:both;
+		width:800px;
+		margin:0 auto;
+		padding-right:40px;
+	}

@@ -1,0 +1,336 @@
+@charset "UTF-8";
+
+*{
+	box-sizing: border-box;
+	margin:0 auto;
+	padding:0;
+	padding:0;
+	box-sizing: border-box;
+	border-collapse:collapse;
+}
+
+a{
+	text-decoration: none;
+	color:black;
+}
+
+#wrap{
+	margin-top:100px;
+	height:100%;
+	width:60%;
+}
+
+#title{
+	font-size:1.8em;
+	font-weight:bold;
+}
+
+#search{
+	margin-top:10px;
+	width:400px;
+	float:left;
+	position:relative;
+}
+
+.form input[type=text]{
+	outline: none;
+	border:0;
+	border:3px solid black;
+	height:40px;
+	width:100%;
+	float:left;
+	padding: 5px 45px 5px 5px;
+	/* font-size:1.1em; */
+	box-sizing: border-box;
+}
+
+.form input[type=submit]{
+	position:absolute;
+	top:0;
+	left:100%;
+	transform:translateX(-140%);
+	width:25px;
+	height:25px;
+	background-image:url('../img/search25x25.jpg');
+	border:0;
+	outline:none;
+	margin-top:7px;	
+}
+#write button{
+	margin:10px 0 0 15px;
+	height:40px;
+	padding: 0 20px;
+	/* float:left; */
+	border:0;
+	outline:none;
+	background-color:black;
+	color:white;
+}
+
+#write button:hover{
+	cursor:pointer;
+}
+
+#loginPlz button{
+	margin:10px 0 0 15px;
+	height:40px;
+	padding: 0 20px;
+	border:0;
+	outline:none;
+	text-decoration: underline;
+	text-underline-position:under;
+	background-color:white;
+}
+
+#loginPlz button:hover{
+	cursor:pointer;
+	font-weight:bold;
+
+}
+
+#list{
+	margin-top:50px;
+	clear:both;
+}
+
+
+
+
+table{
+	width:100%;
+}
+
+#wrap .title{
+	border-bottom:3px solid black;
+	text-align:center;
+	padding-bottom: 2%;
+	font-size:0.85em;
+}
+
+#wrap .content{
+	border-bottom:1px solid lightgrey;
+	text-align:center;
+	padding: 2% 0;
+	font-size:0.85em;
+}
+
+#wrap #left{
+	text-align:left;
+}
+
+#qnaNo{
+	width:10%;
+}
+
+#qnaTitle{
+	width:50%;
+}
+
+#qnaWriter{
+	width:10%;
+}
+
+#qnaRdate{
+	width:20%;
+}
+
+#qnaHit{
+	width:10%;
+}
+
+#paging{
+	margin-top:3%;
+	text-align:center;
+}
+
+#paging a{
+	color:lightgrey;
+}
+
+#currentPage{
+	color:black;
+	text-decoration: underline;
+	text-underline-position:under;
+	font-weight:bold;
+}
+
+.next{
+	font-size:1.5em;
+	color:black;
+	font-weight:bold;
+}
+
+span{
+	margin:0 0.5%;
+}
+
+
+#WriteForm{
+	margin-top:10%;
+}
+#DetailForm{
+	margin-top:10%;
+}
+
+#writeFirstLine{
+	text-align:left;
+	font-weight:bold;
+	font-size:1.5em;
+	letter-spacing: -1px;
+	border-bottom:3px solid black;
+	padding-bottom: 2%;
+}
+
+#WriteForm .content{
+	text-align:left;
+	font-size: 0.85em;
+	padding: 3% 0;
+}
+
+#WriteForm #title{
+	padding: 1% 0;
+}
+
+#WriteForm input[type=text], #WriteForm input[type=password], #WriteForm textarea{
+	width:100%;
+	padding: 2% 2%;
+	outline: 0;
+	border:0;
+	background-color: #f2f2f2;
+}
+
+#WriteForm input[type=text]:focus, #WriteForm input[type=password]:focus, #WriteForm textarea:focus{
+	border:1px solid black;
+	box-sizing: border-box;
+	background-color: white;
+}
+
+#qWriter, #qTitle, #qContent, #qPw{
+	width:25%;
+}
+
+.lastRow td{
+	border-bottom:1px solid black;
+}
+
+input[type=submit]{
+	width:20%;
+	padding:1% 0.5%;
+	margin:5% 1% 0% 1%;
+	font-size:1.0em;
+	background-color:black;
+	color:white;
+	outline:0;
+	border:0;
+	
+}
+
+input[type=submit]:hover, input[type=button]:hover, button:hover{
+	cursor:pointer;
+}
+
+input[type=button], button{
+	margin:5% 1% 0% 1%;
+	padding:1% 0.5%;
+	width:20%;
+	border:0;
+	outline:0;
+	background-color:white;
+	font-size:0.9em;
+	border:1px solid lightgrey;
+	box-sizing:border-box;
+}
+
+input[type=button]:hover, button:hover{
+	border:1px solid black;
+}
+
+#qnaList{
+	margin-bottom:80px;
+}
+
+
+#qnaList tr{
+	cursor:pointer;
+}
+
+#DetailForm .content{
+	text-align:left;
+}
+
+#adminLoginForm{
+	width:30%;
+	margin-top:100px;
+}
+
+#adminLoginForm table{
+	width:70%;
+}
+
+#adminLoginForm table .title{
+	font-size:2.0em;
+	font-weight:lighter;
+	color:black;
+	border-bottom:3px solid black;
+	text-align:center;
+	padding-bottom:20px;
+}
+
+
+#adminLoginForm table .content{
+	font-weight:lighter;
+	width:100px;
+	padding-top:20px;
+}
+
+#adminLoginForm table .firstTd{
+	font-weight:lighter;
+	width:100px;
+	padding-top:20px;
+}
+
+#adminLoginForm table .otherTd{
+	font-weight:lighter;
+	width:100px;
+	padding-top:10px;
+}
+
+#adminLoginForm input[type=text]{
+	outline:0;
+	width:100%;
+	padding:12px;
+	font-size:0.80em;
+	letter-spacing: -1px;
+/* 	margin-top:5px; */
+}
+
+#adminLoginForm input[type=password]{
+	outline:0;	
+	width:100%;
+	padding:12px;
+/* 	margin-top:5px; */
+	font-size:0.80em;
+	letter-spacing: -1px;
+}
+
+.btn input[type=submit]{
+	width:100%;
+	padding:4%;
+	margin:5% 0%;
+	font-size:1.0em;
+	background-color:black;
+	color:white;
+	outline:0;
+	border:0;
+	
+}
+
+#write #writeBtn{
+	padding: 1%;
+}
+
+
+#beforeLogin{
+	width:30%;
+	text-align:left;
+}

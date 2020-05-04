@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ActEventDate">
+	<resultMap type="ActEventDate" id="ActEventDateResult">
+		<result property="eNo" column="eNo" />
+		<result property="actStartdate" column="actStartdate" />
+		<result property="actEnddate" column="actEnddate" />
+		<result property="hId" column="hId" />
+		<result property="actId" column="actId" />
+		<result property="actName" column="actName" />
+		<result property="actImg" column="actImg" />
+		<result property="MAX_QTY" column="MAX_QTY" />
+	</resultMap>
+<!-- 	<select id="hostActivityDateList" parameterType="ActEventDate" resultMap="ActEventDateResult">
+		SELECT * FROM ACTEVENTDATE WHERE actID=#{actId} ORDER BY actSTARTDATE
+	</select> -->
+	<select id="hostActivityDateList" parameterType="ActEventDate" resultMap="ActEventDateResult">
+		<![CDATA[
+	        SELECT A.*
+			     , B.actPRICE
+	             , B.ACTMAXMEMBER - nvl((SELECT sum(OQTY) FROM ORDERS O WHERE O.ACTID = a.actid AND A.ENO = o.ENO),0) AS MAX_QTY
+			  FROM ACTEVENTDATE A
+			     , ACTIVITY B
+			 WHERE A.actID=#{actId}
+			   AND A.actID = B.actID
+			   AND SYSDATE < A.actSTARTDATE
+			 ORDER BY actSTARTDATE
+		 ]]>
+	</select>
+	<insert id="activityDate" parameterType="ActEventDate">
+		INSERT INTO ACTEVENTDATE VALUES (ACTEVENTDATE_SQ.NEXTVAL, #{actStartdate}, #{actEnddate}, #{hId}, #{actId})
+	</insert>
+	<update id="activityDateModify" parameterType="ActEventDate">
+		UPDATE ACTEVENTDATE SET actSTARTDATE=#{actStartdate}, actENDDATE=#{actEnddate} WHERE eNO=#{eNo}
+	</update>
+	<delete id="activityDateDelete" parameterType="ActEventDate">
+		DELETE FROM ACTEVENTDATE WHERE eNO=#{eNo}
+	</delete>
+	<select id="getActivityDate" parameterType="ActEventDate" resultMap="ActEventDateResult">
+		SELECT * FROM ACTEVENTDATE WHERE actID=#{actId}
+	</select>
+	<select id="getActDate" parameterType="ActEventDate" resultType="ActEventDate">
+		SELECT * FROM ACTEVENTDATE WHERE eNO=#{eNo}
+	</select>
+	<select id="hostActivityCheckList" parameterType="ActEventDate" resultMap="ActEventDateResult">
+		<![CDATA[
+			SELECT A.*, (SELECT actNAME FROM ACTIVITY WHERE actID=A.actID) actNAME, (SELECT actIMG FROM ACTIVITY WHERE actID=A.actID) actIMG
+    		FROM (SELECT ROWNUM RN, AR.* 
+    		FROM (SELECT * FROM actEVENTDATE WHERE actENDDATE < SYSDATE ORDER BY eNO DESC) AR) A
+    		WHERE RN BETWEEN #{startRow} AND #{endRow} AND hID=#{hId} AND actENDDATE < SYSDATE ORDER BY actSTARTDATE
+		]]>
+	</select>
+	<select id="hostActivityCheckTotal" parameterType="ActEventDate" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM ACTEVENTDATE WHERE hID=#{hId} AND actENDDATE < SYSDATE
+		]]>
+	</select>
+	<select id="hostActivityReserveCnt" parameterType="ActEventDate" resultType="int">
+		SELECT COUNT(*) FROM ACTIVITY_RESERVE WHERE eNO=#{eNo}
+	</select>
+	<select id="getActivityDateCnt" parameterType="ActEventDate" resultType="int">
+		SELECT COUNT(*) FROM ACTEVENTDATE WHERE actID=#{actId}
+	</select>
+</mapper>

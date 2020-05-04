@@ -1,0 +1,68 @@
+@charset "UTF-8";
+body {
+		background-color:#EFEFEB;
+	}
+	#activityTitle {
+		width:1400px;
+		margin:0 auto;
+		overflow:hidden;
+		height:729px;
+	}
+	#activityTitle h3 {
+		margin:20px;
+	}
+	#activityTitle #left {
+		margin-left:20px;
+		width:930px;
+		background-color:white;
+		float:left;
+		height:500px;
+	}
+	#activityTitle #left p {
+		font-size:1.3em;
+		margin:30px;
+	}
+	#activityTitle #left input {
+		margin-left:50px;
+	}
+	#activityTitle #left input[type=text] {
+		width:600px;
+		height:40px;
+		line-height:40px;
+		font-size:1.1em;
+		padding-left:10px;
+	}
+	
+	#activityTitle #right {
+		width:430px;
+		height:500px;
+		background-color:white;
+		float:left;
+		border-left:1px solid lightgray;
+		padding:15px;
+	}
+	#activityTitle #right ul li {
+		font-size:0.9em;
+		margin-bottom:20px;
+		list-style:none;
+	}
+	#activityTitle #btn {
+		clear:both;
+		width:1360px;
+		padding:20px 0 20px 30px;
+		background-color:white;
+		border-top:1px solid lightgray;
+	}
+	#activityTitle #btn .btn {
+		width:300px;
+		height:40px;
+		line-height:40px;
+		border-radius:10px;
+		outline:0;
+		border:0;
+		cursor:pointer;
+	}
+	#activityTitle #btn input[type=submit] {
+		background-color:black;
+		color:white;
+	}

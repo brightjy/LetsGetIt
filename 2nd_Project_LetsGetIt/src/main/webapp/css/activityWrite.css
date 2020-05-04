@@ -1,0 +1,93 @@
+@charset "UTF-8";
+	body {
+		background-color:#EFEFEB;
+	}
+	#activityWrite {
+		width:1400px;
+		margin:0 auto;
+		overflow:hidden;
+		height:729px;
+	}
+	#activityWrite h3 {
+		margin:20px;
+	}
+	#activityWrite #left {
+		margin-left:20px;
+		width:930px;
+		background-color:white;
+		float:left;
+		height:550px;
+	}
+	#activityWrite #left p {
+		font-size:1.5em;
+		margin:40px;
+	}
+	#activityWrite #left .category {
+		display:inline-block;
+		font-size:1.3em;
+		padding-top:30px;
+		padding-left:20px;
+		border:1px solid lightgray;
+		width:440px;
+		margin-bottom:40px;
+		cursor:pointer;
+	}
+	#activityWrite #left #c1 {
+		margin:0 10px 0 20px;
+	}
+	#activityWrite #left .category .text {
+		font-size:0.7em;
+		margin:30px 0;
+	}
+	#activityWrite #left b {
+		margin:20px;
+	}
+	#activityWrite #left select {
+		margin:30px 5px;
+		width:210px;
+		height:40px;
+		line-height:40px;
+		padding-left:10px;
+		cursor:pointer;
+	}
+	#activityWrite #left #actCategory2 {
+		margin-left:20px;
+	}
+	
+	#activityWrite #right {
+		width:430px;
+		height:550px;
+		background-color:white;
+		float:left;
+		border-left:1px solid lightgray;
+		padding:15px;
+	}
+	#activityWrite #right ul li {
+		margin:10px;
+		list-style:none;
+	}
+	#activityWrite #right ul li ul li {
+		font-size:0.9em;
+		margin-left:20px;
+		list-style:none;
+	}
+	#activityWrite #btn {
+		clear:both;
+		width:1360px;
+		padding:20px 0 20px 30px;
+		background-color:white;
+		border-top:1px solid lightgray;
+	}
+	#activityWrite #btn .btn {
+		width:300px;
+		height:40px;
+		line-height:40px;
+		border-radius:10px;
+		outline:0;
+		border:0;
+		cursor:pointer;
+	}
+	#activityWrite #btn input[type=submit] {
+		background-color:black;
+		color:white;
+	}

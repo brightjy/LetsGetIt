@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	<!-- Dto alias 설정 -->
+	<typeAliases>
+		<typeAlias alias="Host" type="com.tj.pj.dto.Host" />
+		<typeAlias alias="LikeHost" type="com.tj.pj.dto.LikeHost" />
+		<typeAlias alias="AdminQna" type="com.tj.pj.dto.AdminQna"/>
+		<typeAlias alias="Member" type="com.tj.pj.dto.Member" />
+		<typeAlias alias="Admin" type="com.tj.pj.dto.Admin" />
+		<typeAlias alias="LikeActivity" type="com.tj.pj.dto.LikeActivity" />
+		<typeAlias alias="Activity" type="com.tj.pj.dto.Activity"/>
+		<typeAlias alias="ActEventDate" type="com.tj.pj.dto.ActEventDate"/>
+		<typeAlias alias="ActivityReserve" type="com.tj.pj.dto.ActivityReserve"/>
+		<typeAlias alias="Coupon" type="com.tj.pj.dto.Coupon"/>
+		<typeAlias alias="Review" type="com.tj.pj.dto.Review"/>
+		<typeAlias alias="ReviewLike" type="com.tj.pj.dto.ReviewLike"/>
+		<typeAlias alias="MemberCoupon" type="com.tj.pj.dto.MemberCoupon"/>
+		<typeAlias alias="ActivityCategory" type="com.tj.pj.dto.ActivityCategory"/>
+		<typeAlias alias="LikeCategory" type="com.tj.pj.dto.LikeCategory"/> 
+		<typeAlias alias="Cart" type="com.tj.pj.dto.Cart" />
+		<typeAlias alias="Notice" type="com.tj.pj.dto.Notice" />
+		<typeAlias alias="HostQna" type="com.tj.pj.dto.HostQna" />
+		<typeAlias alias="Orders" type="com.tj.pj.dto.Orders" />
+	</typeAliases>
+	<!-- Mappers 설정 -->
+	<mappers>
+		<mapper resource="META-INF/sqlmap/mapper/Host.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/LikeHost.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/LikeActivity.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/AdminQna.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Member.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Admin.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Activity.xml" />
+		<mapper resource="META-INF/sqlmap/mapper/Coupon.xml" />
+		<mapper resource="META-INF/sqlmap/mapper/MemberCoupon.xml" />
+		<mapper resource="META-INF/sqlmap/mapper/ActEventDate.xml" />
+		<mapper resource="META-INF/sqlmap/mapper/ActivityReserve.xml" />
+		<mapper resource="META-INF/sqlmap/mapper/Review.xml" />
+		<mapper resource="META-INF/sqlmap/mapper/ReviewLike.xml" />
+		<mapper resource="META-INF/sqlmap/mapper/ActivityCategory.xml" />
+		<mapper resource="META-INF/sqlmap/mapper/LikeCategory.xml" />
+		<mapper resource="META-INF/sqlmap/mapper/Cart.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/HostQna.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Notice.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Orders.xml"/>
+	</mappers>
+</configuration>

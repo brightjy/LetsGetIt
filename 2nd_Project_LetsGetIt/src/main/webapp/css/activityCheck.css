@@ -1,0 +1,117 @@
+@charset "UTF-8";
+body {
+		background-color:#EFEFEB;
+	}
+	#activityCheck {
+		width:1400px;
+		margin:0 auto;
+		overflow:hidden;
+	}
+	#activityCheck h3 {
+		margin:20px;
+	}
+	#activityCheck #left {
+		margin-left:20px;
+		width:830px;
+		background-color:white;
+		float:left;
+		height:583px;
+		overflow:auto;
+	}
+	#activityCheck #left #title {
+		font-size:1.5em;
+		margin:30px;
+	}
+	#activityCheck #left #content {
+		width:320px;
+		text-align:left;
+		border:1px solid lightgray;
+		margin-bottom:30px;
+	}
+	#activityCheck #left #content hr {
+		width:290px;
+		margin:30px 0;
+	}
+	#activityCheck #left #content img {
+		width:320px;
+		height:320px;
+		margin-bottom:15px;
+	}
+	#activityCheck #left #content #name {
+		font-weight:bold;
+		margin-bottom:30px;
+		font-size:1.1em;
+		margin-left:15px;
+	}
+	#activityCheck #left #content #price {
+		font-weight:bold;
+		margin-left:15px;
+	}
+	#activityCheck #left #content .like {
+		margin:10px;
+		font-size:0.8em;
+	}
+	#activityCheck #left #content .host {
+		margin-left:15px;
+	}
+	#activityCheck #left #content #self {
+		font-size:0.8em;
+	}
+	#activityCheck #left #content h5 {
+		margin:10px;
+	}
+	#activityCheck #left #content #button {
+		width:270px;
+		height:40px;
+		line-height:40px;
+		text-align:center;
+		border:1px solid lightgray;
+		font-size:0.9em;
+		margin-top:15px;
+		margin-left:20px;
+	}
+	#activityCheck #left #content #review {
+		text-align:center;
+		font-size:0.9em;
+	}
+	#activityCheck #left #content #write_area {
+		margin-left:10px;
+		width:250px;
+	}
+	#activityCheck #left #content pre {
+		width:255px;
+		margin-left:15px;
+	}
+	#activityCheck #left #content hr {
+		margin-left:15px;
+	}
+	
+	#activityCheck #right {
+		width:530px;
+		height:583px;
+		background-color:white;
+		float:left;
+		border-left:1px solid lightgray;
+		padding:25px;
+		font-size:0.9em;
+	}
+	#activityCheck #btn {
+		clear:both;
+		width:1360px;
+		padding:20px 0 20px 30px;
+		background-color:white;
+		border-top:1px solid lightgray;
+	}
+	#activityCheck #btn .btn {
+		width:300px;
+		height:40px;
+		line-height:40px;
+		border-radius:10px;
+		outline:0;
+		border:0;
+		cursor:pointer;
+	}
+	#activityCheck #btn input[type=submit] {
+		background-color:black;
+		color:white;
+	}

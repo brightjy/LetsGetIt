@@ -1,0 +1,67 @@
+@charset "UTF-8";
+body {
+		background-color:#EFEFEB;
+	}
+	ul, li {
+		list-style:none;
+	}
+	#activityClude {
+		width:1400px;
+		margin:0 auto;
+		overflow:hidden;
+		height:729px;
+	}
+	#activityClude h3 {
+		margin:20px;
+	}
+	#activityClude #left {
+		margin-left:20px;
+		width:830px;
+		background-color:white;
+		float:left;
+		height:550px;
+	}
+	#activityClude #left textarea {
+		margin-left:30px;
+		padding:10px;
+		width:500px;
+		height:180px;
+		border:1px solid lightgray;
+	}
+	
+	#activityClude #right {
+		width:530px;
+		height:550px;
+		background-color:white;
+		float:left;
+		border-left:1px solid lightgray;
+		padding:15px;
+	}
+	#activityClude #right .space {
+		padding-left:15px;
+		margin-top:5px;
+	}
+	#activityClude #right ul #clude {
+		font-size:1.1em;
+		margin-top:10px;
+	}
+	#activityClude #btn {
+		clear:both;
+		width:1360px;
+		padding:20px 0 20px 30px;
+		background-color:white;
+		border-top:1px solid lightgray;
+	}
+	#activityClude #btn .btn {
+		width:300px;
+		height:40px;
+		line-height:40px;
+		border-radius:10px;
+		outline:0;
+		border:0;
+		cursor:pointer;
+	}
+	#activityClude #btn input[type=submit] {
+		background-color:black;
+		color:white;
+	}

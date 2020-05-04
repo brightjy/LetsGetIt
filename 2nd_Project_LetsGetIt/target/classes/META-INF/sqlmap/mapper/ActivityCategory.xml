@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ActivityCategory">
+	<resultMap type="ActivityCategory" id="ActivityCategoryResult">
+		<result property="actCno" column="actCno" />
+		<result property="tempActCno" column="tempActCno" />
+		<result property="actCategory" column="actCategory" />
+		<result property="actCategory2" column="actCategory2" />
+		<result property="actCategory3" column="actCategory3" />
+		<result property="actCategory4" column="actCategory4" />
+		<result property="actCategory5" column="actCategory5" />
+	</resultMap>
+	<select id="activityCategoryList" resultMap="ActivityCategoryResult">
+		SELECT DISTINCT actCATEGORY2 FROM ACTIVITY_CATEGORY WHERE actCATEGORY=#{actCategory}
+	</select>
+	<select id="activityCategory2List" resultMap="ActivityCategoryResult">
+		SELECT DISTINCT actCATEGORY3 FROM ACTIVITY_CATEGORY WHERE actCATEGORY2=#{actCategory2}
+	</select>
+	<select id="activityCategory3List" resultMap="ActivityCategoryResult">
+		SELECT DISTINCT actCATEGORY4 FROM ACTIVITY_CATEGORY WHERE actCATEGORY3=#{actCategory3}
+	</select>
+	<select id="activityCategory4List" resultMap="ActivityCategoryResult">
+		SELECT DISTINCT actCATEGORY5 FROM ACTIVITY_CATEGORY WHERE actCATEGORY4=#{actCategory4}
+	</select>
+	<select id="activityCategoryCheck" parameterType="ActivityCategory" resultType="int">
+		SELECT actCNO FROM ACTIVITY_CATEGORY 
+    		WHERE actCATEGORY=#{actCategory}
+    		AND actCATEGORY2=#{actCategory2}
+    		AND actCATEGORY3=#{actCategory3}
+    		AND actCATEGORY4=#{actCategory4}
+    	<if test="actCategory5!=null">
+    		AND actCATEGORY5=#{actCategory5}
+    	</if>
+	</select>
+	<!-- 카테고리 전체 가져오기 id:allCateList -->
+	<select id="allCateList" parameterType="ActivityCategory" resultMap="ActivityCategoryResult">
+		SELECT ' '||actCNO||',' tempActCno, actCategory2, actCategory3, actCategory4 FROM ACTIVITY_CATEGORY
+	</select>
+
+</mapper>

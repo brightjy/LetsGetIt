@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewLike">
+	<resultMap type="ReviewLike" id="ReviewLikeResult">
+		<result property="rlNo" column="rlNo" />
+		<result property="rId" column="rId" />
+		<result property="mId" column="mId" />
+		<result property="rlCheck" column="rlCheck" />
+		<result property="actId" column="actId" />
+	</resultMap>
+	<select id="reviewLikeCheck" parameterType="ReviewLike" resultType="ReviewLike">
+		SELECT * FROM REVIEW_LIKE WHERE rID=#{rId} AND actID=#{actId}
+	</select>
+	<insert id="reviewLikeClickWrite" parameterType="ReviewLike">
+		INSERT INTO REVIEW_LIKE VALUES (REVIEW_LIKE_SQ.NEXTVAL, #{rId}, #{mId}, 1, #{actId})
+	</insert>
+	<update id="reviewLikeClick" parameterType="ReviewLike">
+		<if test="rlCheck == 0">
+			UPDATE REVIEW_LIKE SET rlCHECK=1 WHERE rlNO=#{rlNo}
+		</if>
+		<if test="rlCheck == 1">
+			UPDATE REVIEW_LIKE SET rlCHECK=0 WHERE rlNO=#{rlNo}
+		</if>
+	</update>
+	<select id="likeReviewCheck" parameterType="ReviewLike" resultType="ReviewLike">
+		SELECT ROWNUM, actID, rID 
+    		FROM REVIEW 
+    		WHERE actID=#{actId} AND 
+    		rLIKE = (SELECT MAX(rLIKE) FROM REVIEW WHERE actID=#{actId}) 
+    		AND ROWNUM=1
+	</select>
+	<select id="reviewListLikeCheck" parameterType="ReviewLike" resultMap="ReviewLikeResult">
+		SELECT rID, actID, 
+    		(SELECT rlNO FROM REVIEW_LIKE WHERE rID=REVIEW.rID) rlNO, 
+    		(SELECT rlCHECK FROM REVIEW_LIKE WHERE rID=REVIEW.rID) rlCHECK 
+    		FROM (SELECT ROWNUM RN, R.*  
+    		FROM (SELECT * FROM REVIEW ORDER BY rGROUP DESC, rSTEP) R) REVIEW 
+    		WHERE actID=#{actId} AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+</mapper>

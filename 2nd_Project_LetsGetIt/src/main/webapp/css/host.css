@@ -1,0 +1,333 @@
+@charset "UTF-8";
+
+@media(max-width:640px){
+	
+*{
+	box-sizing: border-box;
+}
+
+#loginFormWrap{
+	height:1200px;
+	border:1px solid black;
+	background-image:url('../img/hostLoginWrap.jpg');
+	background-position: 0px 0px;
+	background-rpeat:no-repeat;
+	background-attatchment:scroll;
+	background-size:100% 100%;
+	position:relative;
+}
+
+.loginForm{
+	height:1200px;
+	background-color: rgba( 0, 0, 0, 0.3 );
+}
+
+.box{
+	width:600px;
+	height:620px;
+	position:absolute;
+/* 	position:fixed; */
+	top:150px;
+	left:150px;
+	background-color:rgba( 255, 255, 255, 0.9 );
+	padding:30px;
+	/* border-radius:20px; */
+}
+
+table{
+	width:70%;
+
+}
+
+
+
+table .title{
+	font-size:2.0em;
+	font-weight:lighter;
+	color:black;
+	border-bottom:3px solid black;
+	text-align:center;
+	padding-bottom:20px;
+}
+
+table .content{
+	font-weight:lighter;
+	width:100px;
+	padding-top:20px;
+}
+
+table .hPwhChk{
+	font-weight:lighter;
+	width:100px;
+	padding-top:10px;
+}
+
+input[type=text]{
+	outline:0;
+	width:100%;
+	padding:12px;
+	font-size:0.80em;
+	letter-spacing: -1px;
+/* 	margin-top:5px; */
+}
+
+input[type=button]{
+	outline:0;
+	width:100%;
+	padding:12px;
+	margin-top:10px;
+	font-size:0.95em;
+}
+
+input[type=text]:focus{
+	border:1px solid black;
+}
+
+input[type=password]{
+	outline:0;	
+	width:100%;
+	padding:12px;
+/* 	margin-top:5px; */
+	font-size:0.80em;
+	letter-spacing: -1px;
+}
+
+input[type=password]:focus{
+	border:1px solid black;
+}
+
+input[type=submit]{
+	width:100%;
+	padding:18px 12px;
+	margin-top:20px;
+	font-size:1.0em;
+	background-color:black;
+	color:white;
+	outline:0;
+	border:0;
+	
+}
+
+input[type=submit]:hover, input[type=button]:hover{
+	cursor:pointer;
+}
+
+.span{
+	font-weight:lighter;
+	width:100px;
+	padding-top:20px;
+	text-align:center;
+}
+
+input[type=button]{
+	border:0;
+	background-color:white;
+	font-size:0.9em;
+	border:1px solid lightgrey;
+}
+
+input[type=button]:hover{
+	border:1px solid black;
+}
+
+#joinWrap{
+	width:100%;
+	margin-top:180px;
+	margin-bottom:80px;
+}
+
+.content p{
+	margin-bottom:5px;
+	font-size:0.95em;
+}
+
+.content span{
+	font-size:0.95em;
+}
+
+.postSearch:hover{
+	cursor:pointer;
+}
+
+#emailConfirmMsg, #idConfirmMsg, #pwConfirmMsg, #nameConfirmMsg, #phoneConfirmMsg{
+	font-size:0.80em;
+	letter-spacing: -1px;
+	color:#03c8ff;
+}
+
+#hPhoto{
+	text-align:center;
+}
+
+/* td{
+		border:1px solid black;
+} */
+	
+	
+}
+
+
+@media(min-width:640px){
+
+*{
+	box-sizing: border-box;
+}
+
+#loginFormWrap{
+	height:1200px;
+	border:1px solid black;
+	background-image:url('../img/hostLoginWrap.jpg');
+	background-position: 0px 0px;
+	background-rpeat:no-repeat;
+	background-attatchment:scroll;
+	background-size:100% 100%;
+	position:relative;
+}
+
+.loginForm{
+	height:1200px;
+	background-color: rgba( 0, 0, 0, 0.3 );
+}
+
+.box{
+	width:600px;
+	height:620px;
+	position:absolute;
+/* 	position:fixed; */
+	top:150px;
+	left:150px;
+	background-color:rgba( 255, 255, 255, 0.9 );
+	padding:30px;
+	/* border-radius:20px; */
+}
+
+table{
+	width:70%;
+
+}
+
+
+
+table .title{
+	font-size:2.0em;
+	font-weight:lighter;
+	color:black;
+	border-bottom:3px solid black;
+	text-align:center;
+	padding-bottom:20px;
+}
+
+table .content{
+	font-weight:lighter;
+	width:100px;
+	padding-top:20px;
+}
+
+table .hPwhChk{
+	font-weight:lighter;
+	width:100px;
+	padding-top:10px;
+}
+
+input[type=text]{
+	outline:0;
+	width:100%;
+	padding:12px;
+	font-size:0.80em;
+	letter-spacing: -1px;
+/* 	margin-top:5px; */
+}
+
+input[type=button]{
+	outline:0;
+	width:100%;
+	padding:12px;
+	margin-top:10px;
+	font-size:0.95em;
+}
+
+input[type=text]:focus{
+	border:1px solid black;
+}
+
+input[type=password]{
+	outline:0;	
+	width:100%;
+	padding:12px;
+/* 	margin-top:5px; */
+	font-size:0.80em;
+	letter-spacing: -1px;
+}
+
+input[type=password]:focus{
+	border:1px solid black;
+}
+
+input[type=submit]{
+	width:100%;
+	padding:18px 12px;
+	margin-top:20px;
+	font-size:1.0em;
+	background-color:black;
+	color:white;
+	outline:0;
+	border:0;
+	
+}
+
+input[type=submit]:hover, input[type=button]:hover{
+	cursor:pointer;
+}
+
+.span{
+	font-weight:lighter;
+	width:100px;
+	padding-top:20px;
+	text-align:center;
+}
+
+input[type=button]{
+	border:0;
+	background-color:white;
+	font-size:0.9em;
+	border:1px solid lightgrey;
+}
+
+input[type=button]:hover{
+	border:1px solid black;
+}
+
+#joinWrap{
+	width:30%;
+	margin-top:80px;
+	margin-bottom:80px;
+}
+
+.content p{
+	margin-bottom:5px;
+	font-size:0.95em;
+}
+
+.content span{
+	font-size:0.95em;
+}
+
+.postSearch:hover{
+	cursor:pointer;
+}
+
+#emailConfirmMsg, #idConfirmMsg, #pwConfirmMsg, #nameConfirmMsg, #phoneConfirmMsg{
+	font-size:0.80em;
+	letter-spacing: -1px;
+	color:#03c8ff;
+}
+
+#hPhoto{
+	text-align:center;
+}
+
+/* td{
+		border:1px solid black;
+} */
+
+}

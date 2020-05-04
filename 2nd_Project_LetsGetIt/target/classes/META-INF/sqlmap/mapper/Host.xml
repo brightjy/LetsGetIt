@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="Host">
+ 	<resultMap type="Host" id="HostResult">
+ 		<result property="hId" column="hId"/>
+ 		<result property="hPw" column="hPw"/>
+ 		<result property="hName" column="hName"/>
+ 		<result property="hPhone" column="hPhone"/>
+ 		<result property="hEmail" column="hEmail"/>
+ 		<result property="hPhoto" column="hPhoto"/>
+ 		<result property="hRdate" column="hRdate"/>
+ 		<result property="hBlack" column="hBlack"/>
+ 		<result property="hPost" column="hPost"/>
+ 		<result property="hAddress" column="hAddress"/>
+ 		<result property="hCntLike" column="hCntLike"/>
+ 	</resultMap>
+ 	<!-- 아이디 중복체크  -->
+ 	<select id="idConfirm" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM HOST WHERE hID=#{hId}
+ 	</select>
+ 	<!-- 이메일 중복체크 -->
+ 	<select id="emailConfirm" parameterType="String" resultType="int">
+ 		SELECT COUNT(*) FROM HOST WHERE hEmail=#{hEmail}
+ 	</select>
+ 	<!-- 회원가입 -->
+ 	<insert id="hostJoin" parameterType="Host">
+<!--  		INSERT INTO HOST (hID, hPW, hNAME, hPHONE, hEMAIL, hPhoto, hPOST, hADDRESS)
+    		VALUES (#{hId}, #{hPw}, #{hName}, #{hPhone}, #{hEmail}, #{hPost}, #{hAddress}) -->
+    	INSERT INTO HOST (hID, hPW, hNAME, hPHONE, hEMAIL, hPhoto, hPOST, hADDRESS)
+    		VALUES (#{hId}, #{hPw}, #{hName}, #{hPhone}, #{hEmail}, 'hPhotoDefault120x120.jpg', #{hPost}, #{hAddress})
+ 	</insert>
+ 	<!-- 로그인 -->
+ 	<select id="getHost" parameterType="String" resultType="Host">
+ 		SELECT*FROM HOST WHERE hID=#{hId}
+ 	</select>
+ 	<!-- 정보수정 -->
+ 	<update id="hostModify" parameterType="Host">
+ 		UPDATE HOST SET
+		    hPW=#{hPw},
+		    hNAME=#{hName},
+		    hPHONE=#{hPhone},
+		    hEMAIL=#{hEmail},
+		    <if test="hPhoto!=''">hPHOTO=#{hPhoto},</if>		    
+		    hPOST=#{hPost},
+		    hADDRESS=#{hAddress}
+		    WHERE hID=#{hId}
+ 	</update>
+ 	<!-- 비밀번호 재설정 -->
+ 	<update id="hostSearchPw" parameterType="Host">
+ 		UPDATE HOST SET
+   			hPW=#{hPw}
+    		WHERE hID=#{hId} AND hEMAIL=#{hEmail}
+ 	</update>
+ 	<!-- 호스트리스트(관리자가 보는 리스트, 검색도가능) -->
+ 	<select id="hostList" parameterType="Host" resultMap="HostResult">
+ 		SELECT*FROM(SELECT ROWNUM RN, A.* FROM
+    (SELECT*FROM HOST WHERE hNAME LIKE '%'||#{searchText, jdbcType = VARCHAR}||'%' OR hID LIKE '%'||#{searchText, jdbcType = VARCHAR}||'%' ORDER BY hRDATE DESC)A) 
+        WHERE RN BETWEEN #{startRow} AND #{endRow}       
+ 	</select>
+ 	<!-- 호스트리스트(좋아요가 높은 순 정렬) -->
+ 	<select id="hostBestList" parameterType="Host" resultMap="HostResult">
+ 		SELECT*FROM(SELECT ROWNUM RN, A.* FROM
+    		(SELECT*FROM HOST ORDER BY hCNTLIKE DESC)A) 
+        		WHERE RN BETWEEN #{startRow} AND #{endRow}
+ 	</select>
+	<!-- 호스트 좋아하면 추가로 해줄 작업 -->
+	<update id="whenMemberHostLike" parameterType="String">
+		UPDATE HOST SET hCNTLIKE=hCNTLIKE+1 WHERE HID=#{hId}
+	</update>	
+	<!-- 호스트 좋아하기 취소하면 추가로 해줄 작업 -->
+	<update id="whenMemberHostDislike" parameterType="String">
+		UPDATE HOST SET hCNTLIKE=hCNTLIKE-1 WHERE HID=#{hId}
+	</update>
+ </mapper>

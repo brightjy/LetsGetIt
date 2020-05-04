@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HostQna">
+	<resultMap type="HostQna" id="HostQnaResult">
+		<result property="qId" column="qId"/>
+		<result property="qTitle" column="qTitle"/>
+		<result property="qWriter" column="qWriter"/>
+		<result property="qPw" column="qPw"/>
+		<result property="qContent" column="qContent"/>
+		<result property="qGroup" column="qGroup"/>
+		<result property="qStep" column="qStep"/>
+		<result property="qIndent" column="qIndent"/>
+		<result property="qRdate" column="qRdate"/>
+		<result property="qImg" column="qImg"/>
+		<result property="actId" column="actId"/>
+	</resultMap>
+	<select id="hostQnaList" parameterType="HostQna" resultMap="HostQnaResult">
+		<!-- SELECT*FROM(SELECT ROWNUM RN, A.* FROM
+    		(SELECT*FROM HOSTQNA WHERE QTITLE LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' OR qCONTENT LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' ORDER BY qGROUP  DESC, qSTEP)A) 
+       			 WHERE RN BETWEEN #{startRow} AND #{endRow} -->
+       	SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM HOST_QNA WHERE actId = #{actId}
+                <if test='searchText != null and searchText !="" '>
+                    and (QTITLE LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' OR qCONTENT LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%')
+                </if>
+                 	ORDER BY qGROUP  DESC, qSTEP)A)WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="hostQnaCnt" parameterType="HostQna" resultType="int">
+		SELECT COUNT(*) FROM HOST_QNA WHERE qTITLE LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' OR qCONTENT LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%'
+	</select>
+	<select id="hostQnaDetail" parameterType="int" resultMap="HostQnaResult" >
+		SELECT*FROM HOST_QNA WHERE QID=#{qId}
+	</select>
+	<insert id="hostQnaWrite" parameterType="HostQna">
+    	<if test="qImg==''">
+    		INSERT INTO HOST_QNA (QID, QTITLE, QWRITER, QPW, QCONTENT,QGROUP, QSTEP, QINDENT,QRDATE ,actId)
+            VALUES (HOST_QNA_SQ.NEXTVAL,#{qTitle},#{qWriter},#{qPw},#{qContent},HOST_QNA_SQ.CURRVAL,0,0,SYSDATE,#{actId,jdbcType=VARCHAR})
+    	</if>
+		<if test="qImg!=''">
+			INSERT INTO HOST_QNA (QID, QTITLE, QWRITER, QPW, QCONTENT,QGROUP, QSTEP, QINDENT,QRDATE,QIMG,actId)
+            VALUES (HOST_QNA_SQ.NEXTVAL,#{qTitle},#{qWriter},#{qPw},#{qContent},HOST_QNA_SQ.CURRVAL,0,0,SYSDATE,#{qImg},#{actId,jdbcType=VARCHAR})
+    	</if>
+	</insert>
+	<update id="hostQnaModify" parameterType="HostQna">
+		UPDATE HOST_QNA SET 
+		    QTITLE = #{qTitle},
+		    QCONTENT = #{qContent},
+		    <if test="qImg!=''">
+			    QIMG = #{qImg},
+		    </if>
+		    QRDATE = SYSDATE,
+		    actId = #{actId}
+		    WHERE QID=#{qId} AND QPW=#{qPw}
+	</update>
+	<delete id="hostQnaDelete" parameterType="HostQna">
+		DELETE HOST_QNA WHERE QID=#{qId} AND QPW=#{qPw}
+	</delete>
+	<update id="hostQnaReplyStepA" parameterType="int">
+		UPDATE HOST_QNA SET QSTEP = #{qStep}+1 WHERE QGROUP=#{qGroup} AND #{qStep}>0
+	</update>
+	<insert id="hostQnaReply" parameterType="HostQna">
+		INSERT INTO HOST_QNA (QID, QTITLE, QWRITER, QPW, QCONTENT,QGROUP, QSTEP, QINDENT,actId)
+    		VALUES (HOST_QNA_SQ.NEXTVAL, #{qTitle}, #{qWriter}, #{qPw}, #{qContent}, #{qGroup}, #{qStep}+1, #{qIndent}+1,#{actId})
+	</insert>
+</mapper>
+
+

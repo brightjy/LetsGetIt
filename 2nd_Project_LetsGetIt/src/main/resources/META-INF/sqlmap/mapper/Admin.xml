@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="Admin">
+ 	<resultMap type="Admin" id="AdminResult">
+ 		<result property="aId" column="aId"/>
+ 		<result property="aName" column="aName"/>
+ 		<result property="aPw" column="aPw"/>
+ 	</resultMap>
+ 	<!-- 관리자 등록  -->
+ 	<insert id="adminJoin" parameterType="Admin">
+ 		INSERT INTO ADMIN VALUES (#{aId}, #{aName}, #{aPw})
+ 	</insert>
+ 	<!-- 관리자 로그인 -->
+ 	<select id="getAdmin" parameterType="String" resultType="Admin">
+ 		SELECT*FROM ADMIN WHERE aID=#{aId}
+ 	</select>
+ </mapper>

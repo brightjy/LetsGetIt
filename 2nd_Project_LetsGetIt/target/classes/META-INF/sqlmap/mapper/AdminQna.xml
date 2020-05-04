@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminQna">
+	<resultMap type="AdminQna" id="AdminQnaResult">
+		<result property="qId" column="qId"/>
+		<result property="qTitle" column="qTitle"/>
+		<result property="qWriter" column="qWriter"/>
+		<result property="qPw" column="qPw"/>
+		<result property="qContent" column="qContent"/>
+		<result property="qFile" column="qFile"/>
+		<result property="qGroup" column="qGroup"/>
+		<result property="qStep" column="qStep"/>
+		<result property="qIndent" column="qIndent"/>
+		<result property="qRdate" column="qRdate"/>
+		<result property="qIp" column="qIp"/>
+		<result property="qHit" column="qHit"/>
+	</resultMap>
+	<!-- 리스트(+검색+페이징)  --> 
+	<select id="adminQnaList" parameterType="AdminQna" resultMap="AdminQnaResult">
+		SELECT*FROM(SELECT ROWNUM RN, A.* FROM
+    		(SELECT*FROM ADMIN_QNA WHERE qTITLE LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' OR qCONTENT LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' ORDER BY qGROUP DESC, qSTEP)A) 
+       			 WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 글 개수(페이징 용) -->
+	<select id="adminQnaCnt" parameterType="AdminQna" resultType="int">
+		SELECT COUNT(*) FROM ADMIN_QNA WHERE qTITLE LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' OR qCONTENT LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%'
+	</select>
+	<!-- 히트 수 올리기 -->
+	<update id="adminQnaHitup" parameterType="AdminQna">
+		UPDATE ADMIN_QNA SET qHIT = #{qHit}+1 WHERE qID=#{qId}	
+	</update>
+	<!-- 상세보기  -->
+	<select id="adminQnaDetail" parameterType="int" resultMap="AdminQnaResult" >
+		SELECT*FROM ADMIN_QNA WHERE qID=#{qId}
+	</select>
+	<!-- 새글(원글) 작성하기 -->
+	<insert id="adminQnaWrite" parameterType="AdminQna">
+		<!-- 첨부파일이 있는 경우 -->
+		<if test="qFile!=''">
+			INSERT INTO ADMIN_QNA (qID, qTITLE, qWRITER, qPW, qCONTENT, qFILE, qGROUP, qSTEP, qINDENT, qIP)
+	    		VALUES (ADMIN_QNA_SQ.NEXTVAL, #{qTitle}, #{qWriter}, #{qPw}, #{qContent}, #{qFile}, ADMIN_QNA_SQ.CURRVAL, 0, 0, #{qIp})
+    	</if>
+    	<!-- 첨부파일이 없는 경우 -->
+    	<if test="qFile==''">
+    		INSERT INTO ADMIN_QNA (qID, qTITLE, qWRITER, qPW, qCONTENT, qGROUP, qSTEP, qINDENT, qIP)
+	    		VALUES (ADMIN_QNA_SQ.NEXTVAL, #{qTitle}, #{qWriter}, #{qPw}, #{qContent}, ADMIN_QNA_SQ.CURRVAL, 0, 0, #{qIp})
+    	</if>
+	</insert>
+	<!-- 글 수정하기 -->
+	<update id="adminQnaModify" parameterType="AdminQna">
+		UPDATE ADMIN_QNA SET 
+		    qTITLE = #{qTitle},
+		    qCONTENT = #{qContent},
+		    <if test="qFile!=''">
+			    qFILE = #{qFile},
+		    </if>
+		    qIP = #{qIp},
+		    qRDATE = SYSDATE
+		    WHERE qID=#{qId} AND qPW=#{qPw}
+	</update>
+	<!-- 글 삭제하기 -->
+	<delete id="adminQnaDelete" parameterType="AdminQna">
+		DELETE ADMIN_QNA WHERE qID = #{qId} AND qPW=#{qPw}
+	</delete>
+	<!-- 답글 쓰기 stepA  -->
+	<update id="adminQnaReplyStepA" parameterType="int">
+		UPDATE ADMIN_QNA SET qSTEP = qStep+1 WHERE qGROUP=#{qGroup} AND qStep>0
+	</update>
+	<!-- 답글 쓰기 -->
+	<insert id="adminQnaReply" parameterType="AdminQna">
+		INSERT INTO ADMIN_QNA (qID, qTITLE, qWRITER, qPW, qCONTENT, qGROUP, qSTEP, qINDENT, qIP)
+    		VALUES (ADMIN_QNA_SQ.NEXTVAL, #{qTitle}, #{qWriter}, #{qPw}, #{qContent}, #{qGroup}, #{qStep}+1, #{qIndent}+1, #{qIp})
+	</insert>
+</mapper>
+
+

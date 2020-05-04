@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Cart">
+	<resultMap type="Cart" id="CartResult">
+		<result property="cId" column="cId"/>
+		<result property="cAmount" column="cAmount"/>
+		<result property="actId" column="actId"/>
+		<result property="mId" column="mId"/>
+	</resultMap>
+	<insert id="addCart" parameterType="Cart">
+		INSERT INTO CART VALUES (CART_SEQ.NEXTVAL,#{cAmount},#{actId},#{mId})
+	</insert>
+	<select id="listCart" resultMap="CartResult">
+		SELECT 
+			c.cId,
+			c.mId,
+			a.actId,
+			m.mName,
+			a.actName,
+			c.cAmount,
+			a.actPrice,
+			(actPrice*cAmount)money
+		FROM
+			MEMBER M , ACTIVITY A, CART C
+		WHERE m.mId =c.mId AND a.actId = c.actId AND c.mId=#{mId}
+		ORDER BY
+			c.cId
+	</select>
+	<select id="sumMoney" resultType="int">
+		SELECT NVL(SUM(actPrice*cAmount),0) money
+		FROM CART C , ACTIVITY A
+		WHERE c.actId = a.actId AND c.mId=#{mId}
+	</select>
+	<update id="modifyCart">
+		UPDATE CART
+		SET cAmount = #{cAmount}
+		WHERE mId = #{mId} AND actId = #{actId}
+	</update>
+	<delete id="deleteCart">
+		DELETE FROM CART
+		WHERE cId = #{cId}
+	</delete>
+	<select id="countCart" resultType="int">
+		SELECT COUNT(*)
+		FROM CART
+		WHERE mId = #{mId} AND actId = #{actId}
+	</select>
+	<update id="updateCart">
+		UPDATE CART
+		SET cAmount = cAmount+#{cAmount}
+		WHERE mId = #{mId} AND 	actId = #{actId}
+	</update>
+</mapper>

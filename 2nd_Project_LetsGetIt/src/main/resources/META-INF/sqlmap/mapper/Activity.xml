@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Activity">
+	<resultMap type="Activity" id="ActivityResult">
+		<result property="actId" column="actId" />
+		<result property="actName" column="actName" />
+		<result property="actImg" column="actImg" />
+		<result property="actInfo" column="actInfo" />
+		<result property="actAddress1" column="actAddress1" />
+		<result property="actAddress2" column="actAddress2" />
+		<result property="actPrice" column="actPrice" />
+		<result property="actGrade" column="actGrade" />
+		<result property="actLike" column="actLike" />
+		<result property="actInclude" column="actInclude" />
+		<result property="actExclude" column="actExclude" />
+		<result property="actSchedule" column="actSchedule" />
+		<result property="actPolicy" column="actPolicy" />
+		<result property="hId" column="hId" />
+		<result property="actPlan" column="actPlan" />
+		<result property="actDiscount" column="actDiscount" />
+		<result property="actCno" column="actCno" />
+		<result property="actMinMember" column="actMinMember" />
+		<result property="actMaxMember" column="actMaxMember" />
+		<result property="actOption" column="actOption" />
+		<result property="actCategory3" column="actCategory3" />
+		<result property="actEventdate" column="actEventdate" />
+		<result property="hName" column="hName" />
+		<result property="hPhoto" column="hPhoto" />
+		<result property="hCntLike" column="hCntLike" />
+		<result property="mId" column="mId" />
+		<result property="MAX_QTY" column="MAX_QTY" />
+	</resultMap>
+	<insert id="activityWrite" parameterType="Activity">
+		INSERT INTO ACTIVITY 
+    		(actID, actNAME, actIMG, actINFO, actADDRESS1, actADDRESS2, actPRICE, actINCLUDE, actEXCLUDE, actPOLICY, actSCHEDULE, hID, actDISCOUNT, actCNO, actMINMEMBER, actMAXMEMBER, actOPTION)
+    		VALUES (ACTIVITY_SQ.NEXTVAL, #{actName}, #{actImg}, #{actInfo}, #{actAddress1}, #{actAddress2}, #{actPrice}, #{actInclude}, #{actExclude}, #{actPolicy}, #{actSchedule}, #{hId}, #{actDiscount}, #{actCno}, #{actMinMember}, #{actMaxMember}, #{actOption})
+	</insert>
+	<select id="hostActivityList2" parameterType="Activity" resultMap="ActivityResult">
+		SELECT * FROM ACTIVITY WHERE hID=#{hId}
+	</select>
+	<select id="hostActivityList" parameterType="Activity" resultMap="ActivityResult">
+		SELECT * FROM
+    		(SELECT ROWNUM RN, A.* FROM
+    		(SELECT * FROM ACTIVITY WHERE HID=#{hId} ORDER BY actID DESC) A)
+    		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<update id="activityModify" parameterType="Activity">
+		UPDATE ACTIVITY SET actNAME=#{actName}, actIMG=#{actImg}, actINFO=#{actInfo}, actADDRESS1=#{actAddress1},
+                    actADDRESS2=#{actAddress2}, actPRICE=#{actPrice}, actINCLUDE=#{actInclude}, actEXCLUDE=#{actExclude},
+                    actPOLICY=#{actPolicy}, actSCHEDULE=#{actSchedule}, hID=#{hId}, actDISCOUNT=#{actDiscount},
+                    actMINMEMBER=#{actMinMember}, actMAXMEMBER=#{actMaxMember}, actOPTION=#{actOption} WHERE actID=#{actId}
+	</update>
+	<delete id="activityDelete" parameterType="Activity">
+		DELETE FROM ACTIVITY WHERE actID=#{actId}
+	</delete>
+	<select id="getActivity" parameterType="Activity" resultMap="ActivityResult">
+		SELECT * FROM ACTIVITY WHERE actID=#{actId}
+	</select>
+	<select id="hostActivityTotal" parameterType="Activity" resultType="int">
+		SELECT COUNT(*) FROM ACTIVITY WHERE hID=#{hId}
+	</select>
+	<!-- 전체 액티비티 개수 -->
+	<select id="activityCnt" parameterType="Activity" resultType="int">	
+		SELECT COUNT(*) FROM ACTIVITY A, ACTIVITY_CATEGORY AC
+		    WHERE A.ACTCNO=AC.ACTCNO 
+		    AND  ACTNAME LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' OR ACTINFO LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' 
+		    AND AC.ACTCATEGORY=#{actCategory, jdbcType=VARCHAR} 
+		    AND AC.ACTCATEGORY2=#{actCategory2, jdbcType=VARCHAR} 
+		    AND AC.ACTCATEGORY3=#{actCategory3, jdbcType=VARCHAR} 
+		    AND AC.ACTCATEGORY4=#{actCategory4, jdbcType=VARCHAR} 
+		    AND ACTCATEGORY5=#{actCategory5, jdbcType=VARCHAR}
+	</select>
+		
+	<!-- 인기 카테고리 별 개수  -->
+	<select id="activityBestCateCnt" parameterType="Activity" resultType="int">
+		SELECT COUNT(*) FROM ACTIVITY A, ACTIVITY_CATEGORY AC 
+        	WHERE A.ACTCNO=AC.ACTCNO AND AC.ACTCATEGORY3=#{actCategory3, jdbcType=VARCHAR}
+	</select>
+	<!-- 검색하면 나오는 액티비티 전체 리스트(기본적으로는 라이크 수 많은 순)  id : activityAllList -->
+	<select id="activityAllList" parameterType="Activity" resultMap="ActivityResult">
+		SELECT*FROM(SELECT ROWNUM RN, A.* FROM 
+	    	(SELECT A.*, ACTCATEGORY FROM ACTIVITY A, ACTIVITY_CATEGORY AC 
+	        WHERE A.ACTCNO=AC.ACTCNO 
+	        AND ACTNAME LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' OR ACTINFO LIKE '%'||#{searchText, jdbcType=VARCHAR}||'%' 
+	        AND AC.ACTCATEGORY=#{actCategory, jdbcType=VARCHAR}  
+	        AND AC.ACTCATEGORY2=#{actCategory2, jdbcType=VARCHAR} 
+	        AND AC.ACTCATEGORY3=#{actCategory3, jdbcType=VARCHAR} 
+	        AND AC.ACTCATEGORY4=#{actCategory4, jdbcType=VARCHAR} 
+	        AND ACTCATEGORY5=#{actCategory5, jdbcType=VARCHAR}
+	        ORDER BY ACTLIKE DESC)A) 
+	        WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 카테고리 넘버로 액티비티 다 가져오기 id : activityByCate -->
+	<select id="activityByCateList" parameterType="Activity" resultMap="ActivityResult">
+		SELECT*FROM ACTIVITY WHERE ACTCNO=#{actCno}
+	</select>
+	<!-- 인기 카테고리 리스트 id: activityBestCateList -->
+	<select id="activityBestCateList" parameterType="Activity" resultMap="ActivityResult">
+		SELECT*FROM(SELECT ROWNUM RN, A.* FROM
+		    (SELECT A.*,  ACTCATEGORY3 FROM ACTIVITY A, ACTIVITY_CATEGORY AC 
+		        WHERE A.ACTCNO=AC.ACTCNO AND ac.actcategory3=#{actCategory3, jdbcType=VARCHAR} 
+		        	ORDER BY ACTLIKE DESC)A)
+		            	WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 호스트가 좋아요 많은 순으로 정렬한 액티비티 리스트(페이징까지) id : activityBestHostList -->
+	<select id="activityBestHostList" parameterType="Activity" resultMap="ActivityResult">
+	<if test="startRow=='' and endRow==''">
+		SELECT*FROM(SELECT ROWNUM RN, A.* FROM 
+    		(SELECT A.*, HCNTLIKE FROM ACTIVITY A, HOST H WHERE A.HID=H.HID ORDER BY H.HCNTLIKE DESC)A) 
+        		WHERE RN BETWEEN 1 AND 4
+	</if>
+	<if test="startRow!='' and endRow!=''">
+		SELECT*FROM(SELECT ROWNUM RN, A.* FROM 
+    		(SELECT A.*, HCNTLIKE FROM ACTIVITY A, HOST H WHERE A.HID=H.HID ORDER BY H.HCNTLIKE DESC)A) 
+        		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</if>
+	</select>
+	<!-- 좋아요가 높은순으로 정렬한 액티비티 리스트(1위부터 10위까지) id : activityLikeBestList -->
+	<select id="activityLikeBestList" parameterType="Activity" resultMap="ActivityResult">
+		SELECT*FROM(SELECT ROWNUM RN, A.* FROM 
+    		(SELECT*FROM ACTIVITY ORDER BY ACTLIKE DESC)A) WHERE RN BETWEEN 1 AND 10
+	</select>
+	<!-- 최신 순 액티비티 리스트 전체용 id: activityMainNewList -->
+	<select id="activityNewList" parameterType="Activity" resultMap="ActivityResult">
+	<if test="startRow=='' and endRow==''">
+		SELECT*FROM(SELECT ROWNUM RN, A.* FROM 
+    		(SELECT*FROM ACTIVITY ORDER BY ACTID DESC)A) WHERE RN BETWEEN 1 AND 4
+    </if>
+    <if test="startRow!='' and endRow!=''">
+    	SELECT*FROM(SELECT ROWNUM RN, A.* FROM 
+		    (SELECT A.* FROM ACTIVITY A, ACTIVITY_CATEGORY AC 
+		    WHERE A.ACTCNO=AC.ACTCNO ORDER BY ACTID DESC)A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    </if>
+	</select>
+	
+	<!-- 멤버의 관심 카테고리에 맞는 액티비티 리스트(메인에 뿌릴 용) id : memberCustomizedActList -->
+	<select id="memberCustomizedActList" parameterType="String" resultMap="ActivityResult">
+		SELECT*FROM ACTIVITY WHERE ACTCNO IN (SELECT ACTCNO FROM LIKE_CATEGORY WHERE MID=#{mId, jdbcType = VARCHAR})
+	</select>
+	
+	<!-- 멤버의 관심 카테고리에 맞는 액티비티 개수  id : memberCustomizedActListAllCnt -->
+	<select id="memberCustomizedActListAllCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM ACTIVITY WHERE ACTCNO IN (SELECT ACTCNO FROM LIKE_CATEGORY WHERE MID=#{mId, jdbcType = VARCHAR})
+	</select>
+	
+	<!-- 멤버의 관심 카테고리에 맞는 액티비티 리스트(페이징ver)  id : memberCustomizedActListAll -->
+	<select id="memberCustomizedActListAll" parameterType="Activity" resultMap="ActivityResult">
+		SELECT*FROM(SELECT ROWNUM RN, A.* FROM 
+		    (SELECT*FROM ACTIVITY WHERE ACTCNO IN 
+		        (SELECT ACTCNO FROM LIKE_CATEGORY WHERE MID=#{mId, jdbcType = VARCHAR}))A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<!-- 액티비티 상세보기(기본+호스트정보일부) -->
+	<select id="activityDetail" parameterType="Activity" resultMap="ActivityResult">
+		        SELECT A.*, hPHOTO, hNAME, hCNTLIKE,
+                    (A.ACTMAXMEMBER - nvl((SELECT sum(OQTY) FROM ORDERS O WHERE O.ACTID = A.ACTID),0)) AS MAX_QTY
+		    FROM ACTIVITY A, HOST H 
+		        WHERE A.HID=H.HID       
+		        AND A.ACTID=#{actId}
+	</select>
+	
+	<!-- category3이 같은 액티비티 불러오기(상세보기 하단에 뿌릴용) id: activitySameCate3List -->
+	<select id="activitySameCate3List" parameterType="int" resultMap="ActivityResult">
+		SELECT A.* FROM ACTIVITY A, ACTIVITY_CATEGORY AC 
+	    	WHERE A.ACTCNO=AC.ACTCNO AND ACTCATEGORY3 
+	        IN (SELECT ACTCATEGORY3 FROM ACTIVITY A, ACTIVITY_CATEGORY AC WHERE A.ACTCNO=AC.ACTCNO AND ACTID=#{actId})
+	</select>
+	
+	<!-- 액티비티 좋아하면 추가로 해줄 작업 -->
+	<update id="whenMemberActLike" parameterType="int">
+		UPDATE ACTIVITY SET ACTLIKE=ACTLIKE+1 WHERE ACTID=#{actId}
+	</update>
+	
+	<!-- 액티비티 좋아하기 취소하면 추가로 해줄 작업 -->
+	<update id="whenMemberActDislike" parameterType="int">
+		UPDATE ACTIVITY SET ACTLIKE=ACTLIKE-1 WHERE ACTID=#{actId}
+	</update>
+	
+	<!-- 액티비티 평점 구하기 -->
+	<update id="activityReviewGrade" parameterType="Activity">
+		UPDATE ACTIVITY SET ACTGRADE=(SELECT AVG(rGRADE) FROM REVIEW WHERE actID=#{actId}) WHERE actID=#{actId}
+	</update>
+</mapper>

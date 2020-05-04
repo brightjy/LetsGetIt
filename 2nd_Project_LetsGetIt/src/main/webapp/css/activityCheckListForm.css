@@ -1,0 +1,43 @@
+@charset "UTF-8";
+#activityCheckList {
+		width:700px;
+		height:719px;
+		margin:0 auto;
+	}
+	#activityCheckList h2 {
+		margin:10px;
+	}
+	#activityCheckList table {
+		width:650px;
+		margin:0 auto;
+	}
+	#activityCheckList table tr th, td {
+		width:100px;
+		height:40px;
+		line-height:40px;
+		text-align:center;
+		border-bottom:1px solid lightgray;
+	}
+	#activityCheckList table tr .tel {
+		width:150px;
+	}
+	#activityCheckList .btn {
+		cursor:pointer;
+		width:80px;
+		height:30px;
+		background-color:black;
+		color:white;
+	}
+	#activityCheckList #btn {
+		width:80px;
+		height:30px;
+		line-height:30px;
+		margin:30px;
+		margin-left:550px;
+		cursor:pointer;
+		background-color:black;
+		color:white;
+	}
+	#activityCheckList .time {
+		width:150px;
+	}

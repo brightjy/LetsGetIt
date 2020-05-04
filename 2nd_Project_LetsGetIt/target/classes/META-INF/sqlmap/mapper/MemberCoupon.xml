@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberCoupon">
+	<resultMap type="MemberCoupon" id="MemberCouponResult">
+		<result property="mcNo" column="mcNo" />
+		<result property="mId" column="mId" />
+		<result property="cId" column="cId" />
+		<result property="mcDate" column="mcDate" />
+		<result property="mcUse" column="mcUse" />
+		<result property="mBirth" column="mBirth" />
+	</resultMap>
+	<select id="couponList" parameterType="MemberCoupon" resultMap="MemberCouponResult">
+		SELECT C.*, (SELECT cNAME FROM COUPON WHERE cID=C.cID) cNAME FROM 
+    		(SELECT ROWNUM RN, C.* FROM 
+    		(SELECT * FROM MEMBER_COUPON ORDER BY cID DESC) C) C 
+    		WHERE mID=#{mId} AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<insert id="couponPayments" parameterType="MemberCoupon">
+		<if test="mId == 1">
+			INSERT INTO MEMBER_COUPON (mcNO, mID, cID, mcDATE) 
+			SELECT MEMBER_COUPON_SQ.NEXTVAL , M.mID, C.cID, #{mcDate} FROM COUPON C, MEMBER M WHERE cID=#{cId}
+		</if>
+		<if test="mId == 2">
+			INSERT INTO MEMBER_COUPON (mcNO, mID, cID, mcDATE) 
+			SELECT MEMBER_COUPON_SQ.NEXTVAL, M.mID, C.cID, #{mcDate} FROM COUPON C, MEMBER M WHERE cID=#{cId} AND mBIRTH LIKE '%'||#{mBirth}
+		</if>
+	</insert>
+	<select id="memberCouponTotCnt" resultType="int">
+		SELECT COUNT(*) FROM MEMBER_COUPON
+	</select>
+	<select id="getMemberCoupon" parameterType="MemberCoupon" resultType="MemberCoupon">
+		SELECT * FROM MEMBER_COUPON WHERE mcNO=#{mcNo}
+	</select>
+	<insert id="autoCouponPayments">
+		INSERT INTO MEMBER_COUPON (mcNO, mID, cID, mcDATE) 
+		SELECT MEMBER_COUPON_SQ.NEXTVAL, M.mID, C.cID, (SELECT ADD_MONTHS(SYSDATE, 6) FROM DUAL) 
+		FROM COUPON C, MEMBER M WHERE cID=3 AND 
+		TO_CHAR(mBIRTH, 'MM-DD') LIKE (SELECT TO_CHAR(SYSDATE, 'MM-DD') FROM DUAL);
+	</insert>
+	<select id="getMemberCouponCnt" parameterType="MemberCoupon" resultType="int">
+		SELECT COUNT(*) FROM MEMBER_COUPON WHERE cID=#{cId}
+	</select>
+	<select id="myCouponCnt" parameterType="MemberCoupon" resultType="int">
+		SELECT COUNT(*) FROM MEMBER_COUPON WHERE mID=#{mId}
+	</select>
+	<delete id="myCouponDelete" parameterType="MemberCoupon">
+		DELETE FROM MEMBER_COUPON WHERE mcNO=#{mcNo}
+	</delete>
+</mapper>
